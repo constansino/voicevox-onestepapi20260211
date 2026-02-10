@@ -1,0 +1,1112 @@
+{
+  "ja": {
+    "params": {
+      "accent_phrases": "アクセント句",
+      "speedScale": "速度倍率",
+      "pitchScale": "音高倍率",
+      "intonationScale": "抑揚倍率",
+      "volumeScale": "音量倍率",
+      "prePhonemeLength": "前音素長",
+      "postPhonemeLength": "後音素長",
+      "pauseLength": "休止長",
+      "pauseLengthScale": "休止長倍率",
+      "outputSamplingRate": "出力サンプリングレート",
+      "outputStereo": "ステレオ出力",
+      "kana": "かな（読み）"
+    },
+    "styles": {
+      "ノーマル": "ノーマル",
+      "あまあま": "あまあま",
+      "ツンツン": "ツンツン",
+      "セクシー": "セクシー",
+      "ささやき": "ささやき",
+      "ヒソヒソ": "ヒソヒソ",
+      "ヘロヘロ": "ヘロヘロ",
+      "なみだめ": "なみだめ",
+      "クイーン": "クイーン",
+      "喜び": "喜び",
+      "ツンギレ": "ツンギレ",
+      "悲しみ": "悲しみ",
+      "ふつう": "ふつう",
+      "わーい": "わーい",
+      "びくびく": "びくびく",
+      "おこ": "おこ",
+      "びえーん": "びえーん",
+      "熱血": "熱血",
+      "不機嫌": "不機嫌",
+      "しっとり": "しっとり",
+      "かなしみ": "かなしみ",
+      "囁き": "囁き",
+      "セクシー／あん子": "セクシー／あん子",
+      "泣き": "泣き",
+      "怒り": "怒り",
+      "のんびり": "のんびり",
+      "たのしい": "たのしい",
+      "かなしい": "かなしい",
+      "人間ver.": "人間ver.",
+      "ぬいぐるみver.": "ぬいぐるみver.",
+      "人間（怒り）ver.": "人間（怒り）ver.",
+      "鬼ver.": "鬼ver.",
+      "アナウンス": "アナウンス",
+      "読み聞かせ": "読み聞かせ",
+      "第二形態": "第二形態",
+      "ロリ": "ロリ",
+      "楽々": "楽々",
+      "恐怖": "恐怖",
+      "内緒話": "内緒話",
+      "おちつき": "おちつき",
+      "うきうき": "うきうき",
+      "人見知り": "人見知り",
+      "おどろき": "おどろき",
+      "こわがり": "こわがり",
+      "へろへろ": "へろへろ",
+      "元気": "元気",
+      "ぶりっ子": "ぶりっ子",
+      "ボーイ": "ボーイ",
+      "低血圧": "低血圧",
+      "覚醒": "覚醒",
+      "実況風": "実況風",
+      "おどおど": "おどおど",
+      "絶望と敗北": "絶望と敗北"
+    },
+    "characters": {
+      "7ffcb7ce-00ec-4bdc-82cd-45a8889e43ff": {
+        "name": "四国めたん",
+        "description": "はっきりした芯のある声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]",
+          "あまあま": "甘くとろけるような口調 [cute,affection]",
+          "ツンツン": "そっけなく刺々しい [tsundere]",
+          "セクシー": "大人っぽく艶のある [mature]",
+          "ささやき": "耳元でささやくような小声 [asmr,whisper]",
+          "ヒソヒソ": "こそこそ話すような声 [asmr,whisper,secret]"
+        }
+      },
+      "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9": {
+        "name": "ずんだもん",
+        "description": "子供っぽい高めの声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]",
+          "あまあま": "甘くとろけるような口調 [cute,affection]",
+          "ツンツン": "そっけなく刺々しい [tsundere]",
+          "セクシー": "大人っぽく艶のある [mature]",
+          "ささやき": "耳元でささやくような小声 [asmr,whisper]",
+          "ヒソヒソ": "こそこそ話すような声 [asmr,whisper,secret]",
+          "ヘロヘロ": "力が抜けてへとへと [lowenergy]",
+          "なみだめ": "涙ぐんだような声 [emotional]"
+        }
+      },
+      "35b2c544-660e-401e-b503-0e14c635303a": {
+        "name": "春日部つむぎ",
+        "description": "元気な明るい声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]"
+        }
+      },
+      "3474ee95-c274-47f9-aa1a-8322163d96f1": {
+        "name": "雨晴はう",
+        "description": "優しく可愛い声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]"
+        }
+      },
+      "b1a81618-b27b-40d2-b0ea-27a9ad408c4b": {
+        "name": "波音リツ",
+        "description": "低めのクールな声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]",
+          "クイーン": "威厳のある女王様風 [regal]"
+        }
+      },
+      "c30dc15a-0992-4f8d-8bb8-ad3b314e6a6f": {
+        "name": "玄野武宏",
+        "description": "爽やかな青年の声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]",
+          "喜び": "嬉しさがにじむ [emotion]",
+          "ツンギレ": "ツンとしてキレ気味 [emotion,irritated]",
+          "悲しみ": "落ち込んだ悲しい [emotion]"
+        }
+      },
+      "e5020595-5c5d-4e87-b849-270a518d0dcf": {
+        "name": "白上虎太郎",
+        "description": "声変わり直後の少年の声",
+        "style_notes": {
+          "ふつう": "標準（ひらがな表記） [general]",
+          "わーい": "わーい！なテンション [cheerful,energetic]",
+          "びくびく": "おびえてびくびく [nervous]",
+          "おこ": "短気でおこ [emotion]",
+          "びえーん": "子どもっぽく泣き声 [emotion]"
+        }
+      },
+      "4f51116a-d9ee-4516-925d-21f183e2afad": {
+        "name": "青山龍星",
+        "description": "重厚で低音な声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]",
+          "熱血": "勢いがあり熱い [energetic]",
+          "不機嫌": "不機嫌でとげとげしい [emotion]",
+          "喜び": "嬉しさがにじむ [emotion]",
+          "しっとり": "しっとり落ち着いた [calm]",
+          "かなしみ": "かなしみ（ひらがな表記） [emotion]",
+          "囁き": "囁き（漢字表記） [asmr,whisper]"
+        }
+      },
+      "8eaad775-3119-417e-8cf4-2a10bfd592c8": {
+        "name": "冥鳴ひまり",
+        "description": "柔らかく温かい声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]"
+        }
+      },
+      "481fb609-6446-4870-9f46-90c4dd623403": {
+        "name": "九州そら",
+        "description": "気品のある大人な声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]",
+          "あまあま": "甘くとろけるような口調 [cute,affection]",
+          "ツンツン": "そっけなく刺々しい [tsundere]",
+          "セクシー": "大人っぽく艶のある [mature]",
+          "ささやき": "耳元でささやくような小声 [asmr,whisper]"
+        }
+      },
+      "9f3ee141-26ad-437e-97bd-d22298d02ad2": {
+        "name": "もち子さん",
+        "description": "明瞭で穏やかな声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]",
+          "セクシー／あん子": "セクシー寄り（キャラ固有） [mature]",
+          "泣き": "泣いているような [emotion]",
+          "怒り": "怒りの感情が強い [emotion]",
+          "喜び": "嬉しさがにじむ [emotion]",
+          "のんびり": "ゆったりマイペース [calm]"
+        }
+      },
+      "1a17ca16-7ee5-4ea5-b191-2f02ace24d21": {
+        "name": "剣崎雌雄",
+        "description": "安心感のある落ち着いた声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]"
+        }
+      },
+      "67d5d8da-acd7-4207-bb10-b5542d3a663b": {
+        "name": "WhiteCUL",
+        "description": "聞き心地のよい率直な声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]",
+          "たのしい": "楽しくはずむ [cheerful]",
+          "かなしい": "泣きそうな悲しさ [emotion]",
+          "びえーん": "子どもっぽく泣き声 [emotion]"
+        }
+      },
+      "0f56c2f2-644c-49c9-8989-94e11f7129d0": {
+        "name": "後鬼",
+        "description": "包容力のある奥ゆかしい声",
+        "style_notes": {
+          "人間ver.": "人間版 [variant]",
+          "ぬいぐるみver.": "ぬいぐるみ版 [variant]",
+          "人間（怒り）ver.": "人間（怒り）版 [variant]",
+          "鬼ver.": "鬼版 [variant]"
+        }
+      },
+      "044830d2-f23b-44d6-ac0d-b5d733caa900": {
+        "name": "No.7",
+        "description": "しっかりした凛々しい声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]",
+          "アナウンス": "アナウンサー風に明瞭 [narration]",
+          "読み聞かせ": "語りかける読み聞かせ [narration,story]"
+        }
+      },
+      "468b8e94-9da4-4f7a-8715-a22a48844f9e": {
+        "name": "ちび式じい",
+        "description": "親しみのある嗄れ声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]"
+        }
+      },
+      "0693554c-338e-4790-8982-b9c6d476dc69": {
+        "name": "櫻歌ミコ",
+        "description": "かわいらしい少女の声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]",
+          "第二形態": "別のフォーム/雰囲気 [variant]",
+          "ロリ": "幼い少女っぽい [cute,childlike]"
+        }
+      },
+      "a8cc6d22-aad0-4ab8-bf1e-2f843924164a": {
+        "name": "小夜/SAYO",
+        "description": "和やかで温厚な声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]"
+        }
+      },
+      "882a636f-3bac-431a-966d-c5e6bba9f949": {
+        "name": "ナースロボ＿タイプＴ",
+        "description": "冷静で慎み深い声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]",
+          "楽々": "気負わず楽々 [calm]",
+          "恐怖": "怖がっている [emotion]",
+          "内緒話": "内緒で話すような声 [asmr,secret]"
+        }
+      },
+      "471e39d2-fb11-4c8c-8d89-4b322d2498e0": {
+        "name": "†聖騎士 紅桜†",
+        "description": "快活でハキハキした声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]"
+        }
+      },
+      "0acebdee-a4a5-4e12-a695-e19609728e30": {
+        "name": "雀松朱司",
+        "description": "物静かで安定した声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]"
+        }
+      },
+      "7d1e7ba7-f957-40e5-a3fc-da49f769ab65": {
+        "name": "麒ヶ島宗麟",
+        "description": "渋いおじさん声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]"
+        }
+      },
+      "ba5d2428-f7e0-4c20-ac41-9dd56e9178b4": {
+        "name": "春歌ナナ",
+        "description": "はつらつとした力強い声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]"
+        }
+      },
+      "00a5c10c-d3bd-459f-83fd-43180b521a44": {
+        "name": "猫使アル",
+        "description": "厚みのある気さくな声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]",
+          "おちつき": "落ち着いたトーン [calm]",
+          "うきうき": "うきうき弾む [cheerful]"
+        }
+      },
+      "c20a2254-0349-4470-9fc8-e5c0f8cf3404": {
+        "name": "猫使ビィ",
+        "description": "ピュアであどけない声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]",
+          "おちつき": "落ち着いたトーン [calm]",
+          "人見知り": "人見知りで控えめ [nervous]"
+        }
+      },
+      "1f18ffc3-47ea-4ce0-9829-0576d03a7ec8": {
+        "name": "中国うさぎ",
+        "description": "幽玄で初々しい声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]",
+          "おどろき": "びっくりした [emotion]",
+          "こわがり": "怖がりでおどおど [nervous]",
+          "へろへろ": "へろへろ（ひらがな表記） [lowenergy]"
+        }
+      },
+      "04dbd989-32d0-40b4-9e71-17c920f2a8a9": {
+        "name": "栗田まろん",
+        "description": "深みのある中性的な声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]"
+        }
+      },
+      "dda44ade-5f9c-4a3a-9d2c-2a976c7476d9": {
+        "name": "あいえるたん",
+        "description": "心地よい物柔らかな声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]"
+        }
+      },
+      "287aa49f-e56b-4530-a469-855776c84a8d": {
+        "name": "満別花丸",
+        "description": "生き生きとした際立つ声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]",
+          "元気": "元気いっぱい [energetic]",
+          "ささやき": "耳元でささやくような小声 [asmr,whisper]",
+          "ぶりっ子": "あざとく可愛い [cute]",
+          "ボーイ": "ボーイッシュ [variant]"
+        }
+      },
+      "97a4af4b-086e-4efd-b125-7ae2da85e697": {
+        "name": "琴詠ニア",
+        "description": "滑らかで無機質な声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]"
+        }
+      },
+      "0ebe2c7d-96f3-4f0e-a2e3-ae13fe27c403": {
+        "name": "Voidoll",
+        "description": "慎ましやかで電子的な声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]"
+        }
+      },
+      "0156da66-4300-474a-a398-49eb2e8dd853": {
+        "name": "ぞん子",
+        "description": "熱血的でありありとした声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]",
+          "低血圧": "低血圧っぽくぼんやり [lowenergy]",
+          "覚醒": "覚醒して鋭い [intense]",
+          "実況風": "実況っぽいテンション [commentary]"
+        }
+      },
+      "4614a7de-9829-465d-9791-97eb8a5f9b86": {
+        "name": "中部つるぎ",
+        "description": "凛然とした存在感のある声",
+        "style_notes": {
+          "ノーマル": "標準的で自然 [general]",
+          "怒り": "怒りの感情が強い [emotion]",
+          "ヒソヒソ": "こそこそ話すような声 [asmr,whisper,secret]",
+          "おどおど": "おどおど不安 [nervous]",
+          "絶望と敗北": "絶望し打ちひしがれる [emotion]"
+        }
+      }
+    }
+  },
+  "en": {
+    "params": {
+      "accent_phrases": "Accent phrases",
+      "speedScale": "Speed scale",
+      "pitchScale": "Pitch scale",
+      "intonationScale": "Intonation scale",
+      "volumeScale": "Volume scale",
+      "prePhonemeLength": "Pre-phoneme length",
+      "postPhonemeLength": "Post-phoneme length",
+      "pauseLength": "Pause length",
+      "pauseLengthScale": "Pause length scale",
+      "outputSamplingRate": "Output sampling rate",
+      "outputStereo": "Stereo output",
+      "kana": "Kana (reading)"
+    },
+    "styles": {
+      "ノーマル": "Normal",
+      "あまあま": "Sweet / Affectionate",
+      "ツンツン": "Tsundere / Sharp",
+      "セクシー": "Sexy",
+      "ささやき": "Whisper",
+      "ヒソヒソ": "Hushed",
+      "ヘロヘロ": "Exhausted",
+      "なみだめ": "Tearful",
+      "クイーン": "Queen",
+      "喜び": "Joy",
+      "ツンギレ": "Snappy",
+      "悲しみ": "Sadness",
+      "ふつう": "Normal",
+      "わーい": "Yay!",
+      "びくびく": "Nervous",
+      "おこ": "Angry",
+      "びえーん": "Waaah (cry)",
+      "熱血": "Hot-blooded",
+      "不機嫌": "Grumpy",
+      "しっとり": "Mellow",
+      "かなしみ": "Sadness",
+      "囁き": "Whisper",
+      "セクシー／あん子": "Sexy / Anko",
+      "泣き": "Crying",
+      "怒り": "Anger",
+      "のんびり": "Laid-back",
+      "たのしい": "Fun",
+      "かなしい": "Sad",
+      "人間ver.": "Human ver.",
+      "ぬいぐるみver.": "Plushie ver.",
+      "人間（怒り）ver.": "Human (Angry) ver.",
+      "鬼ver.": "Oni ver.",
+      "アナウンス": "Announce",
+      "読み聞かせ": "Read-aloud",
+      "第二形態": "Second form",
+      "ロリ": "Loli",
+      "楽々": "Easygoing",
+      "恐怖": "Fear",
+      "内緒話": "Secret talk",
+      "おちつき": "Calm",
+      "うきうき": "Excited",
+      "人見知り": "Shy",
+      "おどろき": "Surprised",
+      "こわがり": "Timid",
+      "へろへろ": "Exhausted",
+      "元気": "Energetic",
+      "ぶりっ子": "Coquettish",
+      "ボーイ": "Boyish",
+      "低血圧": "Low-energy",
+      "覚醒": "Awakened",
+      "実況風": "Commentary",
+      "おどおど": "Fumbling",
+      "絶望と敗北": "Despair & defeat"
+    },
+    "characters": {
+      "7ffcb7ce-00ec-4bdc-82cd-45a8889e43ff": {
+        "name": "Shikoku Metan",
+        "description": "A clear, strong voice with a solid core",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]",
+          "Sweet / Affectionate": "Extra sweet, clingy/affectionate tone [cute,affection]",
+          "Tsundere / Sharp": "Aloof, sharp, tsundere vibe [tsundere]",
+          "Sexy": "Mature, sensual tone [mature]",
+          "Whisper": "Close-up whispering voice [asmr,whisper]",
+          "Hushed": "Hushed, secretive speech [asmr,whisper,secret]"
+        }
+      },
+      "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9": {
+        "name": "Zundamon",
+        "description": "A childlike, high-pitched voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]",
+          "Sweet / Affectionate": "Extra sweet, clingy/affectionate tone [cute,affection]",
+          "Tsundere / Sharp": "Aloof, sharp, tsundere vibe [tsundere]",
+          "Sexy": "Mature, sensual tone [mature]",
+          "Whisper": "Close-up whispering voice [asmr,whisper]",
+          "Hushed": "Hushed, secretive speech [asmr,whisper,secret]",
+          "Exhausted": "Worn-out, drained [lowenergy]",
+          "Tearful": "On-the-verge-of-tears tone [emotional]"
+        }
+      },
+      "35b2c544-660e-401e-b503-0e14c635303a": {
+        "name": "Kasukabe Tsumugi",
+        "description": "An energetic, bright voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]"
+        }
+      },
+      "3474ee95-c274-47f9-aa1a-8322163d96f1": {
+        "name": "Amehare Hau",
+        "description": "A gentle, cute voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]"
+        }
+      },
+      "b1a81618-b27b-40d2-b0ea-27a9ad408c4b": {
+        "name": "Namine Ritsu",
+        "description": "A cool voice with a lower pitch",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]",
+          "Queen": "Regal, queenly tone [regal]"
+        }
+      },
+      "c30dc15a-0992-4f8d-8bb8-ad3b314e6a6f": {
+        "name": "Kurono Takehiro",
+        "description": "A refreshing young adult male voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]",
+          "Joy": "Bright, joyful tone [emotion]",
+          "Snappy": "Tsun + snapping irritation [emotion,irritated]",
+          "Sadness": "Downcast sadness [emotion]"
+        }
+      },
+      "e5020595-5c5d-4e87-b849-270a518d0dcf": {
+        "name": "Shirakami Kotaro",
+        "description": "A boyish voice right after voice change",
+        "style_notes": {
+          "Normal": "Normal (hiragana label) [general]",
+          "Yay!": "High-energy 'Yay!' excitement [cheerful,energetic]",
+          "Nervous": "Timid, trembling [nervous]",
+          "Angry": "Quick-tempered angry [emotion]",
+          "Waaah (cry)": "Childlike crying 'waaah' [emotion]"
+        }
+      },
+      "4f51116a-d9ee-4516-925d-21f183e2afad": {
+        "name": "Aoyama Ryusei",
+        "description": "A heavy, deep low voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]",
+          "Hot-blooded": "Intense, hot-blooded energy [energetic]",
+          "Grumpy": "Grumpy, prickly [emotion]",
+          "Joy": "Bright, joyful tone [emotion]",
+          "Mellow": "Mellow, moist/soft calm [calm]",
+          "Sadness": "Sadness (hiragana label) [emotion]",
+          "Whisper": "Whisper (kanji label) [asmr,whisper]"
+        }
+      },
+      "8eaad775-3119-417e-8cf4-2a10bfd592c8": {
+        "name": "Meimei Himari",
+        "description": "A soft, warm voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]"
+        }
+      },
+      "481fb609-6446-4870-9f46-90c4dd623403": {
+        "name": "Kyushu Sora",
+        "description": "A refined, adult-like voice with poise",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]",
+          "Sweet / Affectionate": "Extra sweet, clingy/affectionate tone [cute,affection]",
+          "Tsundere / Sharp": "Aloof, sharp, tsundere vibe [tsundere]",
+          "Sexy": "Mature, sensual tone [mature]",
+          "Whisper": "Close-up whispering voice [asmr,whisper]"
+        }
+      },
+      "9f3ee141-26ad-437e-97bd-d22298d02ad2": {
+        "name": "Mochiko-san",
+        "description": "A clear, calm voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]",
+          "Sexy / Anko": "Sexy-leaning (character-specific) [mature]",
+          "Crying": "Crying voice [emotion]",
+          "Anger": "Angry delivery [emotion]",
+          "Joy": "Bright, joyful tone [emotion]",
+          "Laid-back": "Relaxed, easygoing [calm]"
+        }
+      },
+      "1a17ca16-7ee5-4ea5-b191-2f02ace24d21": {
+        "name": "Kensaki Mesuo",
+        "description": "A steady, reassuring voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]"
+        }
+      },
+      "67d5d8da-acd7-4207-bb10-b5542d3a663b": {
+        "name": "WhiteCUL",
+        "description": "A straightforward, pleasant-to-listen voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]",
+          "Fun": "Bouncy, fun tone [cheerful]",
+          "Sad": "Sad/tearful [emotion]",
+          "Waaah (cry)": "Childlike crying 'waaah' [emotion]"
+        }
+      },
+      "0f56c2f2-644c-49c9-8989-94e11f7129d0": {
+        "name": "Goki",
+        "description": "A reserved voice with a sense of embrace",
+        "style_notes": {
+          "Human ver.": "Human version [variant]",
+          "Plushie ver.": "Stuffed-toy version [variant]",
+          "Human (Angry) ver.": "Human version (angry) [variant]",
+          "Oni ver.": "Oni (demon) version [variant]"
+        }
+      },
+      "044830d2-f23b-44d6-ac0d-b5d733caa900": {
+        "name": "No.7",
+        "description": "A firm, dignified voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]",
+          "Announce": "Clear announcer style [narration]",
+          "Read-aloud": "Storytelling read-aloud [narration,story]"
+        }
+      },
+      "468b8e94-9da4-4f7a-8715-a22a48844f9e": {
+        "name": "Chibi-shiki Ji-i",
+        "description": "A friendly, husky voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]"
+        }
+      },
+      "0693554c-338e-4790-8982-b9c6d476dc69": {
+        "name": "Ouka Miko",
+        "description": "A lovely young girl’s voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]",
+          "Second form": "Alternate form / vibe [variant]",
+          "Loli": "Very childlike/young-girl tone [cute,childlike]"
+        }
+      },
+      "a8cc6d22-aad0-4ab8-bf1e-2f843924164a": {
+        "name": "Sayo",
+        "description": "A mild, gentle voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]"
+        }
+      },
+      "882a636f-3bac-431a-966d-c5e6bba9f949": {
+        "name": "NurseRobot_TypeT",
+        "description": "A composed, modest voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]",
+          "Easygoing": "Effortless, relaxed [calm]",
+          "Fear": "Fearful [emotion]",
+          "Secret talk": "As if speaking secretly [asmr,secret]"
+        }
+      },
+      "471e39d2-fb11-4c8c-8d89-4b322d2498e0": {
+        "name": "Holy Knight Benizakura",
+        "description": "A lively, crisp voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]"
+        }
+      },
+      "0acebdee-a4a5-4e12-a695-e19609728e30": {
+        "name": "Suzumatsu Akashi",
+        "description": "A quiet, stable voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]"
+        }
+      },
+      "7d1e7ba7-f957-40e5-a3fc-da49f769ab65": {
+        "name": "Kigashima Sorin",
+        "description": "A gritty, mature ‘old man’ voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]"
+        }
+      },
+      "ba5d2428-f7e0-4c20-ac41-9dd56e9178b4": {
+        "name": "Haruka Nana",
+        "description": "A lively, powerful voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]"
+        }
+      },
+      "00a5c10c-d3bd-459f-83fd-43180b521a44": {
+        "name": "Nekotsukai Aru",
+        "description": "A friendly voice with weight/thickness",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]",
+          "Calm": "Calm, steady [calm]",
+          "Excited": "Upbeat excitement [cheerful]"
+        }
+      },
+      "c20a2254-0349-4470-9fc8-e5c0f8cf3404": {
+        "name": "Nekotsukai Bii",
+        "description": "A pure, innocent voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]",
+          "Calm": "Calm, steady [calm]",
+          "Shy": "Shy, reserved [nervous]"
+        }
+      },
+      "1f18ffc3-47ea-4ce0-9829-0576d03a7ec8": {
+        "name": "Chugoku Usagi",
+        "description": "An ethereal, fresh voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]",
+          "Surprised": "Surprised tone [emotion]",
+          "Timid": "Timid, scared [nervous]",
+          "Exhausted": "Exhausted (hiragana label) [lowenergy]"
+        }
+      },
+      "04dbd989-32d0-40b4-9e71-17c920f2a8a9": {
+        "name": "Kurita Marron",
+        "description": "A deep, androgynous voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]"
+        }
+      },
+      "dda44ade-5f9c-4a3a-9d2c-2a976c7476d9": {
+        "name": "Ieru-tan",
+        "description": "A soft-spoken voice that feels pleasant",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]"
+        }
+      },
+      "287aa49f-e56b-4530-a469-855776c84a8d": {
+        "name": "Manbetsu Hanamaru",
+        "description": "A vivid, lively, standout voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]",
+          "Energetic": "Full of energy [energetic]",
+          "Whisper": "Close-up whispering voice [asmr,whisper]",
+          "Coquettish": "Cutesy, coquettish [cute]",
+          "Boyish": "Boyish vibe [variant]"
+        }
+      },
+      "97a4af4b-086e-4efd-b125-7ae2da85e697": {
+        "name": "Kotoe Nia",
+        "description": "A smooth, inorganic voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]"
+        }
+      },
+      "0ebe2c7d-96f3-4f0e-a2e3-ae13fe27c403": {
+        "name": "Voidoll",
+        "description": "A modest, electronic-sounding voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]"
+        }
+      },
+      "0156da66-4300-474a-a398-49eb2e8dd853": {
+        "name": "Zonko",
+        "description": "A hot-blooded, vivid voice",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]",
+          "Low-energy": "Sluggish, low-energy [lowenergy]",
+          "Awakened": "Awakened, sharp/intense [intense]",
+          "Commentary": "Live-commentary style [commentary]"
+        }
+      },
+      "4614a7de-9829-465d-9791-97eb8a5f9b86": {
+        "name": "Chubu Tsurugi",
+        "description": "A dignified voice with strong presence",
+        "style_notes": {
+          "Normal": "Standard, natural delivery [general]",
+          "Anger": "Angry delivery [emotion]",
+          "Hushed": "Hushed, secretive speech [asmr,whisper,secret]",
+          "Fumbling": "Uneasy, fumbling [nervous]",
+          "Despair & defeat": "Crushed by despair/defeat [emotion]"
+        }
+      }
+    }
+  },
+  "zh": {
+    "params": {
+      "accent_phrases": "重音短语",
+      "speedScale": "语速倍率",
+      "pitchScale": "音高倍率",
+      "intonationScale": "语调倍率",
+      "volumeScale": "音量倍率",
+      "prePhonemeLength": "前音素时长",
+      "postPhonemeLength": "后音素时长",
+      "pauseLength": "停顿时长",
+      "pauseLengthScale": "停顿倍率",
+      "outputSamplingRate": "输出采样率",
+      "outputStereo": "立体声输出",
+      "kana": "假名（读音）"
+    },
+    "styles": {
+      "ノーマル": "普通",
+      "あまあま": "甜甜/撒娇",
+      "ツンツン": "傲娇/别扭",
+      "セクシー": "性感",
+      "ささやき": "耳语",
+      "ヒソヒソ": "小声密语",
+      "ヘロヘロ": "虚脱/没力气",
+      "なみだめ": "含泪/哭腔",
+      "クイーン": "女王",
+      "喜び": "喜悦",
+      "ツンギレ": "别扭爆发",
+      "悲しみ": "悲伤",
+      "ふつう": "普通",
+      "わーい": "耶!/开心",
+      "びくびく": "胆怯/发抖",
+      "おこ": "生气",
+      "びえーん": "哇哇哭",
+      "熱血": "热血",
+      "不機嫌": "不爽/不高兴",
+      "しっとり": "湿润/柔和",
+      "かなしみ": "悲伤",
+      "囁き": "耳语",
+      "セクシー／あん子": "性感/あん子",
+      "泣き": "哭泣",
+      "怒り": "愤怒",
+      "のんびり": "悠闲",
+      "たのしい": "开心/愉快",
+      "かなしい": "伤心",
+      "人間ver.": "人类ver.",
+      "ぬいぐるみver.": "玩偶ver.",
+      "人間（怒り）ver.": "人类（愤怒）ver.",
+      "鬼ver.": "鬼ver.",
+      "アナウンス": "播报",
+      "読み聞かせ": "朗读/讲故事",
+      "第二形態": "第二形态",
+      "ロリ": "萝莉",
+      "楽々": "轻松",
+      "恐怖": "恐惧",
+      "内緒話": "悄悄话",
+      "おちつき": "沉稳",
+      "うきうき": "兴奋",
+      "人見知り": "怕生",
+      "おどろき": "惊讶",
+      "こわがり": "胆小",
+      "へろへろ": "虚脱/没力气",
+      "元気": "元气",
+      "ぶりっ子": "装可爱",
+      "ボーイ": "男孩子气",
+      "低血圧": "低血压/低气压",
+      "覚醒": "觉醒",
+      "実況風": "解说风",
+      "おどおど": "畏畏缩缩",
+      "絶望と敗北": "绝望与败北"
+    },
+    "characters": {
+      "7ffcb7ce-00ec-4bdc-82cd-45a8889e43ff": {
+        "name": "四国玫碳",
+        "description": "清晰、有“芯”的扎实声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]",
+          "甜甜/撒娇": "软糯黏人、撒娇感 [cute,affection]",
+          "傲娇/别扭": "冷淡别扭、有点刺 [tsundere]",
+          "性感": "成熟妩媚的感觉 [mature]",
+          "耳语": "贴耳低声说话 [asmr,whisper]",
+          "小声密语": "偷偷小声说话 [asmr,whisper,secret]"
+        }
+      },
+      "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9": {
+        "name": "俊达萌",
+        "description": "偏小孩子感的高音声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]",
+          "甜甜/撒娇": "软糯黏人、撒娇感 [cute,affection]",
+          "傲娇/别扭": "冷淡别扭、有点刺 [tsundere]",
+          "性感": "成熟妩媚的感觉 [mature]",
+          "耳语": "贴耳低声说话 [asmr,whisper]",
+          "小声密语": "偷偷小声说话 [asmr,whisper,secret]",
+          "虚脱/没力气": "疲惫虚脱、没力气 [lowenergy]",
+          "含泪/哭腔": "要哭不哭的哭腔 [emotional]"
+        }
+      },
+      "35b2c544-660e-401e-b503-0e14c635303a": {
+        "name": "春日部䌷",
+        "description": "元气、明亮的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]"
+        }
+      },
+      "3474ee95-c274-47f9-aa1a-8322163d96f1": {
+        "name": "雨晴Hau",
+        "description": "温柔可爱的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]"
+        }
+      },
+      "b1a81618-b27b-40d2-b0ea-27a9ad408c4b": {
+        "name": "波音律",
+        "description": "偏低、冷静酷感的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]",
+          "女王": "威严女王感 [regal]"
+        }
+      },
+      "c30dc15a-0992-4f8d-8bb8-ad3b314e6a6f": {
+        "name": "玄野武宏",
+        "description": "清爽的青年男声",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]",
+          "喜悦": "开心喜悦 [emotion]",
+          "别扭爆发": "冷淡中带爆发的烦躁 [emotion,irritated]",
+          "悲伤": "低落悲伤 [emotion]"
+        }
+      },
+      "e5020595-5c5d-4e87-b849-270a518d0dcf": {
+        "name": "白上虎太郎",
+        "description": "刚变声不久的少年声",
+        "style_notes": {
+          "普通": "普通（平假名表记） [general]",
+          "耶!/开心": "很嗨的开心 [cheerful,energetic]",
+          "胆怯/发抖": "害怕发抖 [nervous]",
+          "生气": "气呼呼的生气 [emotion]",
+          "哇哇哭": "小孩子般的哭哭 [emotion]"
+        }
+      },
+      "4f51116a-d9ee-4516-925d-21f183e2afad": {
+        "name": "青山龙星",
+        "description": "厚重、低沉的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]",
+          "热血": "激情热血 [energetic]",
+          "不爽/不高兴": "不高兴、有点刺 [emotion]",
+          "喜悦": "开心喜悦 [emotion]",
+          "湿润/柔和": "更柔和沉静 [calm]",
+          "悲伤": "悲伤（平假名表记） [emotion]",
+          "耳语": "耳语（汉字表记） [asmr,whisper]"
+        }
+      },
+      "8eaad775-3119-417e-8cf4-2a10bfd592c8": {
+        "name": "冥鸣Himari",
+        "description": "柔软、温暖的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]"
+        }
+      },
+      "481fb609-6446-4870-9f46-90c4dd623403": {
+        "name": "九州宇宙",
+        "description": "有气质的成熟大人声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]",
+          "甜甜/撒娇": "软糯黏人、撒娇感 [cute,affection]",
+          "傲娇/别扭": "冷淡别扭、有点刺 [tsundere]",
+          "性感": "成熟妩媚的感觉 [mature]",
+          "耳语": "贴耳低声说话 [asmr,whisper]"
+        }
+      },
+      "9f3ee141-26ad-437e-97bd-d22298d02ad2": {
+        "name": "模型娘饼子",
+        "description": "清晰、平和稳重的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]",
+          "性感/あん子": "偏性感（角色固有） [mature]",
+          "哭泣": "哭着说话 [emotion]",
+          "愤怒": "愤怒语气 [emotion]",
+          "喜悦": "开心喜悦 [emotion]",
+          "悠闲": "慢悠悠、随性 [calm]"
+        }
+      },
+      "1a17ca16-7ee5-4ea5-b191-2f02ace24d21": {
+        "name": "剑崎雌雄",
+        "description": "沉稳、令人安心的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]"
+        }
+      },
+      "67d5d8da-acd7-4207-bb10-b5542d3a663b": {
+        "name": "WhiteCUL",
+        "description": "耐听、直率的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]",
+          "开心/愉快": "轻快愉快 [cheerful]",
+          "伤心": "难过伤心 [emotion]",
+          "哇哇哭": "小孩子般的哭哭 [emotion]"
+        }
+      },
+      "0f56c2f2-644c-49c9-8989-94e11f7129d0": {
+        "name": "后鬼",
+        "description": "内敛含蓄、很有包容感的声线",
+        "style_notes": {
+          "人类ver.": "人类版本 [variant]",
+          "玩偶ver.": "玩偶版本 [variant]",
+          "人类（愤怒）ver.": "人类（愤怒）版本 [variant]",
+          "鬼ver.": "鬼版本 [variant]"
+        }
+      },
+      "044830d2-f23b-44d6-ac0d-b5d733caa900": {
+        "name": "No.7",
+        "description": "扎实、凛然的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]",
+          "播报": "像播音员一样清晰 [narration]",
+          "朗读/讲故事": "讲故事式朗读 [narration,story]"
+        }
+      },
+      "468b8e94-9da4-4f7a-8715-a22a48844f9e": {
+        "name": "ちび式じい",
+        "description": "亲切的沙哑嗓音",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]"
+        }
+      },
+      "0693554c-338e-4790-8982-b9c6d476dc69": {
+        "name": "樱歌Miko",
+        "description": "可爱的少女声",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]",
+          "第二形态": "另一种形态/氛围 [variant]",
+          "萝莉": "更幼态的少女感 [cute,childlike]"
+        }
+      },
+      "a8cc6d22-aad0-4ab8-bf1e-2f843924164a": {
+        "name": "小夜/SAYO",
+        "description": "温和、温厚的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]"
+        }
+      },
+      "882a636f-3bac-431a-966d-c5e6bba9f949": {
+        "name": "NurseRobot TypeT",
+        "description": "冷静、克制的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]",
+          "轻松": "轻松不费力 [calm]",
+          "恐惧": "害怕的语气 [emotion]",
+          "悄悄话": "像在说悄悄话 [asmr,secret]"
+        }
+      },
+      "471e39d2-fb11-4c8c-8d89-4b322d2498e0": {
+        "name": "†圣骑士 红樱†",
+        "description": "爽朗、利落的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]"
+        }
+      },
+      "0acebdee-a4a5-4e12-a695-e19609728e30": {
+        "name": "雀松朱司",
+        "description": "安静、稳定的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]"
+        }
+      },
+      "7d1e7ba7-f957-40e5-a3fc-da49f769ab65": {
+        "name": "麒之岛宗麟",
+        "description": "低沉有韵味的大叔音",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]"
+        }
+      },
+      "ba5d2428-f7e0-4c20-ac41-9dd56e9178b4": {
+        "name": "春歌Nana",
+        "description": "朝气蓬勃、充满力量的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]"
+        }
+      },
+      "00a5c10c-d3bd-459f-83fd-43180b521a44": {
+        "name": "猫使R",
+        "description": "厚实、随和的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]",
+          "沉稳": "沉稳平静 [calm]",
+          "兴奋": "兴奋雀跃 [cheerful]"
+        }
+      },
+      "c20a2254-0349-4470-9fc8-e5c0f8cf3404": {
+        "name": "猫使B",
+        "description": "纯真、稚嫩的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]",
+          "沉稳": "沉稳平静 [calm]",
+          "怕生": "怕生拘谨 [nervous]"
+        }
+      },
+      "1f18ffc3-47ea-4ce0-9829-0576d03a7ec8": {
+        "name": "中国兔",
+        "description": "幽静、青涩的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]",
+          "惊讶": "惊讶语气 [emotion]",
+          "胆小": "胆小害怕 [nervous]",
+          "虚脱/没力气": "虚脱（平假名表记） [lowenergy]"
+        }
+      },
+      "04dbd989-32d0-40b4-9e71-17c920f2a8a9": {
+        "name": "栗田栗子",
+        "description": "富有深度的中性声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]"
+        }
+      },
+      "dda44ade-5f9c-4a3a-9d2c-2a976c7476d9": {
+        "name": "IL碳",
+        "description": "柔和、听感舒适的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]"
+        }
+      },
+      "287aa49f-e56b-4530-a469-855776c84a8d": {
+        "name": "满别花丸",
+        "description": "生动鲜明、充满活力的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]",
+          "元气": "活力满满 [energetic]",
+          "耳语": "贴耳低声说话 [asmr,whisper]",
+          "装可爱": "刻意装可爱 [cute]",
+          "男孩子气": "偏男孩子气 [variant]"
+        }
+      },
+      "97a4af4b-086e-4efd-b125-7ae2da85e697": {
+        "name": "琴咏Nia",
+        "description": "顺滑、无机质感的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]"
+        }
+      },
+      "0ebe2c7d-96f3-4f0e-a2e3-ae13fe27c403": {
+        "name": "Voidoll",
+        "description": "内敛、电子感的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]"
+        }
+      },
+      "0156da66-4300-474a-a398-49eb2e8dd853": {
+        "name": "ぞん子",
+        "description": "热血、情绪鲜明的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]",
+          "低血压/低气压": "懒懒的低能量 [lowenergy]",
+          "觉醒": "觉醒后的强烈感 [intense]",
+          "解说风": "像直播解说一样 [commentary]"
+        }
+      },
+      "4614a7de-9829-465d-9791-97eb8a5f9b86": {
+        "name": "中部つるぎ",
+        "description": "凛然、有存在感的声线",
+        "style_notes": {
+          "普通": "标准自然的语气 [general]",
+          "愤怒": "愤怒语气 [emotion]",
+          "小声密语": "偷偷小声说话 [asmr,whisper,secret]",
+          "畏畏缩缩": "不安畏缩 [nervous]",
+          "绝望与败北": "被绝望击垮的感觉 [emotion]"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voicevox OneStep - 拟音合成站</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .character-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; border-width: 3px; }
+        .character-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .character-card.active { border-color: #3b82f6; background-color: #f0f7ff; }
+        .avatar-img { object-fit: contain; } 
+        .portrait-img { object-fit: cover; object-position: top; transition: transform 0.3s ease; transform-origin: top center; }
+        .portrait-container:hover .portrait-img { transform: scale(1.6); z-index: 50; }
+        .avatar-placeholder { background: linear-gradient(135deg, #e0e7ff 0%, #ede9fe 100%); display: flex; align-items: center; justify-content: center; color: #3b82f6; font-weight: 900; }
+        .sample-btn { transition: all 0.2s; }
+        .sample-btn:hover { background-color: #eff6ff; color: #2563eb; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 20px; }
+        [v-cloak] { display: none; }
+        .modal-enter-active, .modal-leave-active { transition: opacity 0.3s ease; }
+        .modal-enter-from, .modal-leave-to { opacity: 0; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans">
+    <div id="app" v-cloak class="max-w-7xl mx-auto px-4 py-8">
+        <header class="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
+            <div class="text-center md:text-left">
+                <h1 class="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">Voicevox OneStep</h1>
+                <p class="text-slate-500 mt-2 font-medium flex items-center gap-4">
+                    <span class="flex items-center gap-2">CN/EN/JP TTS <span class="w-1 h-1 bg-slate-400 rounded-full"></span></span>
+                    <a href="https://voicevox.hiroshiba.jp/" target="_blank" class="text-blue-500 hover:underline text-sm">Official</a>
+                    <button @click="showDocs = true" class="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1 bg-white px-3 py-1 rounded-full border border-slate-200 shadow-sm">
+                        API 文档
+                    </button>
+                </p>
+            </div>
+            
+            <div class="flex flex-col items-end gap-2">
+                <div class="flex bg-white rounded-lg p-1 border border-slate-200 shadow-sm">
+                    <button v-for="l in languages" :key="l.code" @click="currentLang = l.code" 
+                            :class="['text-[10px] px-3 py-1 rounded-md transition-colors font-bold', currentLang === l.code ? 'bg-blue-50 text-blue-600' : 'text-slate-400 hover:text-slate-600']">
+                        {{ l.name }}
+                    </button>
+                </div>
+
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex items-center gap-4">
+                    <div v-if="isLoggedIn" class="flex items-center gap-4">
+                        <div class="text-sm font-bold text-slate-700 flex flex-col items-end">
+                            <span>{{ username }}</span>
+                            <span class="text-xs text-slate-400">Key: ...{{ apiKey.slice(-4) }}</span>
+                        </div>
+                        <div class="text-sm font-bold text-slate-700">{{t('balance')}}: <span class="text-blue-600">{{ credits }}</span> {{t('chars')}}</div>
+                        <button @click="showRechargeModal = true" class="bg-green-50 text-green-600 px-3 py-1 rounded-lg text-xs font-bold hover:bg-green-100 transition-colors">{{t('recharge')}}</button>
+                        <button @click="logout" class="text-slate-400 hover:text-red-500 transition-colors" title="退出登录">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                        </button>
+                    </div>
+                    <div v-else class="flex gap-2 items-center">
+                        <span class="text-sm text-slate-500 mr-2">{{t('login_needed')}}</span>
+                        <button @click="showLoginModal = true" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200">{{t('login_register')}}</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <section class="lg:col-span-7 bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col h-[800px]">
+                <div class="flex items-center justify-between mb-6 flex-shrink-0">
+                    <h2 class="text-xl font-bold flex items-center gap-2">
+                        <span class="w-2 h-6 bg-blue-600 rounded-full"></span>
+                        {{ t('character_list') }} ({{ characters.length }})
+                    </h2>
+                    <input v-model="searchQuery" :placeholder="t('search_placeholder')" class="bg-slate-50 px-3 py-1.5 rounded-lg text-sm border-none focus:ring-2 focus:ring-blue-100 outline-none">
+                </div>
+                
+                <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 gap-4 overflow-y-auto custom-scrollbar pr-2 flex-1 content-start">
+                    <div v-for="char in filteredCharacters" :key="char.uuid"
+                         @click="selectChar(char)"
+                         :class="['character-card p-2 rounded-2xl text-center border-slate-100 flex flex-col items-center justify-between gap-2', selectedChar.uuid === char.uuid ? 'active' : 'bg-white']">
+                        <div class="w-full aspect-square rounded-xl overflow-hidden bg-slate-50">
+                             <img v-if="char.icon_url" :src="char.icon_url" class="w-full h-full avatar-img" loading="lazy">
+                             <div v-else class="w-full h-full avatar-placeholder text-2xl">{{ (t_char(char.uuid)?.name || char.name)[0] }}</div>
+                        </div>
+                        <div class="w-full px-1">
+                            <div class="font-bold text-sm text-slate-800 truncate">{{ t_char(char.uuid)?.name || char.name }}</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="lg:col-span-5 flex flex-col gap-6">
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 relative overflow-hidden min-h-[280px] flex flex-col justify-center">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-50 to-transparent rounded-full -mr-16 -mt-16 pointer-events-none"></div>
+                    <div class="relative z-10 flex gap-6">
+                        <div class="portrait-container w-32 h-48 rounded-2xl overflow-hidden shadow-md bg-white flex-shrink-0 border border-slate-100 relative group">
+                            <img v-if="portraitUrl" :src="portraitUrl" class="w-full h-full portrait-img">
+                            <div v-else class="w-full h-full avatar-placeholder text-4xl">{{ selectedChar.name ? (t_char(selectedChar.uuid)?.name || selectedChar.name)[0] : '?' }}</div>
+                        </div>
+                        <div class="flex-1 flex flex-col justify-between py-1">
+                            <div>
+                                <h2 class="text-2xl font-black text-slate-800 leading-tight mb-1">{{ t_char(selectedChar.uuid)?.name || selectedChar.name || t('select_char') }}</h2>
+                                <p class="text-xs text-blue-500 font-medium mb-2">{{ t_char(selectedChar.uuid)?.description }}</p>
+                                <p class="text-[10px] text-slate-400 font-mono opacity-60 mb-4">{{ selectedChar.uuid }}</p>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">{{ t('select_style') }}</label>
+                                <div class="flex flex-wrap gap-2 max-h-24 overflow-y-auto custom-scrollbar">
+                                    <button v-for="s in selectedChar.styles" :key="s.id" @click="selectedStyleId = s.id"
+                                            :class="['px-3 py-1.5 rounded-lg text-xs font-bold transition-colors border', selectedStyleId === s.id ? 'bg-blue-600 text-white border-blue-600' : 'bg-slate-50 text-slate-600 border-transparent hover:bg-slate-100']">
+                                        {{ t_style(s.raw_name || s.name) }}
+                                    </button>
+                                </div>
+                                <div class="mt-2 text-[10px] text-slate-500 font-medium min-h-[1.25rem] transition-all">
+                                    {{ selectedStyleDescription }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="samples.length > 0" class="mt-6 pt-4 border-t border-slate-100">
+                        <div class="flex gap-2 overflow-x-auto custom-scrollbar pb-2">
+                            <button v-for="(sample, idx) in samples.slice(0, 5)" :key="idx" @click="playSample(sample)"
+                                    class="sample-btn flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 text-slate-600 text-xs font-bold border border-slate-100 whitespace-nowrap">
+                                <span>{{ t('listen') }} {{ idx + 1 }}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex-1 flex flex-col gap-4">
+                    <div class="flex justify-between items-center pb-2 border-b border-slate-100 flex-wrap gap-2">
+                        <h3 class="text-sm font-bold text-slate-700">{{ t('param_config') }}</h3>
+                        <div class="flex gap-2 items-center flex-wrap">
+                            <select v-model="selectedConfigIndex" @change="loadConfig" class="text-xs bg-slate-50 border-none rounded px-2 py-1 outline-none text-slate-600 w-24">
+                                <option :value="-1">{{ t('select_preset') }}</option>
+                                <option v-for="(cfg, idx) in savedConfigs" :key="idx" :value="idx">{{ cfg.name }}</option>
+                            </select>
+                            <button @click="saveConfig" class="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded hover:bg-blue-100 transition-colors">{{ t('save') }}</button>
+                            <button @click="deleteConfig" v-if="selectedConfigIndex >= 0" class="text-xs text-red-400 hover:text-red-600 transition-colors">{{ t('delete') }}</button>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-end gap-2 text-[10px]">
+                        <button @click="applyChineseOpt" class="bg-indigo-50 text-indigo-600 px-3 py-2 rounded-lg font-bold hover:bg-indigo-100 transition-colors">{{ t('cn_opt') }}</button>
+                        <button @click="resetParams" class="bg-slate-100 text-slate-600 px-3 py-2 rounded-lg font-bold hover:bg-slate-200 transition-colors">{{ t('reset') }}</button>
+                        <button @click="copyConfig" class="bg-slate-100 text-slate-600 px-3 py-2 rounded-lg font-bold hover:bg-slate-200 transition-colors">{{ t('copy_api') }}</button>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-3">
+                        <div v-for="key in ['speed', 'intonation', 'pitch', 'volume', 'prePhoneme', 'postPhoneme']" :key="key">
+                            <div class="flex justify-between text-[10px] font-bold text-slate-400 mb-1">
+                                <span class="capitalize">{{ t_param(key) }}</span> <span class="text-blue-600">{{ params[key] }}</span>
+                            </div>
+                            <input type="range" v-model.number="params[key]" :min="paramConfig[key].min" :max="paramConfig[key].max" :step="paramConfig[key].step" class="w-full h-1 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 block mb-1">{{ t_param('outputSamplingRate') }}</label>
+                            <select v-model.number="params.outputSamplingRate" class="w-full bg-slate-50 text-xs rounded-lg px-2 py-1.5 border-none outline-none">
+                                <option value="24000">24000Hz</option>
+                                <option value="48000">48000Hz</option>
+                                <option value="8000">8000Hz</option>
+                            </select>
+                        </div>
+                         <div class="flex items-center gap-2 pt-4">
+                            <input type="checkbox" v-model="params.outputStereo" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 accent-blue-600">
+                            <span class="text-xs font-bold text-slate-500">{{ t_param('outputStereo') }}</span>
+                        </div>
+                         <div class="col-span-2">
+                             <label class="text-[10px] font-bold text-slate-400 block mb-1">{{ t_param('kana') }}</label>
+                             <input v-model="params.kana" :placeholder="t('kana_placeholder')" class="w-full bg-slate-50 text-xs rounded-lg px-2 py-1.5 border-none outline-none">
+                         </div>
+                    </div>
+
+                    <textarea v-model="text" ref="textareaRef" @input="adjustTextareaHeight" rows="3" class="w-full bg-slate-50 border-none rounded-xl px-4 py-3 text-base focus:ring-2 focus:ring-blue-500 outline-none resize-none flex-1 min-h-[100px]" :placeholder="t('input_placeholder')"></textarea>
+                    
+                    <div class="flex gap-3">
+                         <button @click="synthesize" :disabled="loading || !selectedStyleId" class="flex-1 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold shadow-lg shadow-blue-200 hover:scale-[1.01] active:scale-[0.98] transition-all disabled:opacity-50 disabled:transform-none flex items-center justify-center gap-2">
+                            <span v-if="loading">{{ t('synthesizing') }}</span>
+                            <span v-else>{{ t('synthesize') }}</span>
+                        </button>
+                        <div v-if="audioUrl" class="bg-slate-50 rounded-xl px-3 flex items-center gap-2 animate-in fade-in">
+                            <audio :src="audioUrl" controls autoplay class="h-8 w-32"></audio>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <Transition name="modal">
+            <div v-if="showDocs" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" @click.self="showDocs = false">
+                <div class="bg-white rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl p-8 max-h-[80vh] overflow-y-auto">
+                    <h3 class="text-2xl font-black text-slate-800 mb-6">API Documentation</h3>
+                    <div class="prose text-sm text-slate-600">
+                        <p class="font-bold">Endpoint: <span class="font-mono bg-slate-100 px-1 rounded">POST /tts</span></p>
+                        <p class="mt-2 font-bold">Headers:</p>
+                        <ul class="list-disc pl-5">
+                            <li><code class="bg-slate-100 px-1 rounded">X-API-Key</code>: Your API Key</li>
+                            <li><code class="bg-slate-100 px-1 rounded">Content-Type</code>: application/json</li>
+                        </ul>
+                        <p class="mt-2 font-bold">Body:</p>
+                        <pre class="bg-slate-100 p-4 rounded-xl mt-1 font-mono text-xs overflow-x-auto">
+{
+  "text": "Hello world",
+  "speaker": 1,
+  "speedScale": 1.1,
+  "pitchScale": 0.0,
+  "intonationScale": 1.0,
+  "volumeScale": 1.0,
+  "prePhonemeLength": 0.1,
+  "postPhonemeLength": 0.1,
+  "outputSamplingRate": 24000,
+  "outputStereo": false,
+  "kana": "" 
+}</pre>
+                    </div>
+                    <button @click="showDocs = false" class="mt-6 w-full bg-slate-100 text-slate-600 py-3 rounded-xl font-bold hover:bg-slate-200 transition-colors">Close</button>
+                </div>
+            </div>
+        </Transition>
+
+        <Transition name="modal">
+            <div v-if="showLoginModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" @click.self="showLoginModal = false">
+                <div class="bg-white rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl p-8">
+                    <h3 class="text-2xl font-black text-slate-800 mb-6 text-center">{{ loginMode === 'login' ? t('welcome_back') : t('create_account') }}</h3>
+                    <div class="flex flex-col gap-4">
+                        <input v-model="loginForm.username" :placeholder="t('username')" class="bg-slate-50 border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                        <input v-model="loginForm.password" type="password" :placeholder="t('password')" class="bg-slate-50 border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 outline-none" @keyup.enter="handleLogin">
+                        <button @click="handleLogin" :disabled="loading" class="bg-blue-600 text-white py-3 rounded-xl font-bold shadow-lg shadow-blue-200 hover:scale-[1.02] active:scale-[0.98] transition-all flex justify-center items-center">
+                            {{ loginMode === 'login' ? t('login') : t('register') }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </Transition>
+
+        <Transition name="modal">
+            <div v-if="showRechargeModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" @click.self="showRechargeModal = false">
+                <div class="bg-white rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl p-8 text-center">
+                    <h3 class="text-2xl font-black text-slate-800 mb-2">{{ t('recharge_center') }}</h3>
+                    <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-6 cursor-pointer" @click="selectedPackage = '0.99_1000'">
+                        <div class="text-lg font-bold text-slate-800">1000 {{ t('chars') }}</div>
+                        <div class="text-2xl font-black text-blue-600 mt-1">¥ 0.99</div>
+                    </div>
+                    <button @click="handleRecharge" :disabled="rechargeLoading" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold flex justify-center items-center">
+                        {{ t('pay_now') }}
+                    </button>
+                </div>
+            </div>
+        </Transition>
+    </div>
+
+    <script>
+        const { createApp, ref, computed, onMounted, watch } = Vue;
+        const translationsData = [[TRANS_JSON]];
+        const uiTranslations = {
+            zh: {
+                character_list: "角色列表", search_placeholder: "搜索角色...", select_char: "请选择角色", select_style: "选择音色", listen: "试听",
+                param_config: "参数配置", select_preset: "选择预设...", save: "保存", delete: "删除", cn_opt: "中文优化", reset: "恢复默认", copy_api: "复制API",
+                input_placeholder: "输入文本...", synthesize: "立即合成", synthesizing: "合成中...", welcome_back: "欢迎回来", create_account: "创建账户",
+                username: "用户名", password: "密码", login: "登录", register: "注册", recharge_center: "充值中心", pay_now: "立即支付",
+                balance: "余额", chars: "字符", recharge: "充值", login_needed: "请登录后使用", login_register: "登录 / 注册",
+                kana_placeholder: "留空自动生成"
+            },
+            en: {
+                character_list: "Characters", search_placeholder: "Search...", select_char: "Select a character", select_style: "Select Style", listen: "Listen",
+                param_config: "Params", select_preset: "Presets...", save: "Save", delete: "Delete", cn_opt: "CN Opt", reset: "Reset", copy_api: "Copy API",
+                input_placeholder: "Enter text...", synthesize: "Synthesize", synthesizing: "Processing...", welcome_back: "Welcome", create_account: "Join",
+                username: "Username", password: "Password", login: "Login", register: "Sign Up", recharge_center: "Recharge", pay_now: "Pay Now",
+                balance: "Balance", chars: "chars", recharge: "Top-up", login_needed: "Please login", login_register: "Login / Sign Up",
+                kana_placeholder: "Auto-generate"
+            },
+            ja: {
+                character_list: "キャラ一覧", search_placeholder: "検索...", select_char: "キャラを選択", select_style: "スタイル", listen: "試聴",
+                param_config: "設定", select_preset: "プリセット...", save: "保存", delete: "削除", cn_opt: "中国語最適化", reset: "リセット", copy_api: "APIコピー",
+                input_placeholder: "テキスト入力...", synthesize: "合成", synthesizing: "合成中...", welcome_back: "おかえり", create_account: "新規登録",
+                username: "ユーザー名", password: "パスワード", login: "ログイン", register: "登録", recharge_center: "チャージ", pay_now: "支払う",
+                balance: "残高", chars: "文字", recharge: "チャージ", login_needed: "ログインしてください", login_register: "ログイン / 登録",
+                kana_placeholder: "自動生成"
+            }
+        };
+
+        createApp({ 
+            setup() {
+                const currentLang = ref(localStorage.getItem('vv_lang') || 'zh');
+                const languages = [{ code: 'zh', name: '中文' }, { code: 'en', name: 'English' }, { code: 'ja', name: '日本語' }];
+                const t = (k) => uiTranslations[currentLang.value][k] || k;
+                const t_char = (u) => translationsData[currentLang.value]?.characters[u] || {};
+                const t_style = (n) => translationsData[currentLang.value]?.styles[n] || n;
+                const t_param = (k) => {
+                    const m = { speed: 'speedScale', intonation: 'intonationScale', pitch: 'pitchScale', volume: 'volumeScale', prePhoneme: 'prePhonemeLength', postPhoneme: 'postPhonemeLength' };
+                    return translationsData[currentLang.value]?.params[m[k] || k] || k;
+                };
+                watch(currentLang, (v) => localStorage.setItem('vv_lang', v));
+
+                const characters = ref([]); const searchQuery = ref(""); const selectedChar = ref({}); const selectedStyleId = ref(null);
+                const text = ref("中国有句古话,识时务者为俊杰"); const apiKey = ref(localStorage.getItem('vv_key') || "");
+                const isLoggedIn = ref(false); const username = ref(""); const showLoginModal = ref(false); const showRechargeModal = ref(false);
+                const rechargeLoading = ref(false); const selectedPackage = ref('0.99_1000'); const loginMode = ref('login');
+                const loginForm = ref({ username: '', password: '' }); const credits = ref(null); const audioUrl = ref(null);
+                const loading = ref(false); const showDocs = ref(false); const bgmFileRef = ref(null); const savedConfigs = ref([]);
+                const selectedConfigIndex = ref(-1); const textareaRef = ref(null);
+
+                const adjustTextareaHeight = () => { if (textareaRef.value) { textareaRef.value.style.height = 'auto'; textareaRef.value.style.height = textareaRef.value.scrollHeight + 'px'; } };
+                const params = ref({ speed: 1.1, intonation: 1.0, pitch: 0.0, volume: 1.0, prePhoneme: 0.1, postPhoneme: 0.1, outputSamplingRate: 24000, outputStereo: false, kana: "" });
+                const paramConfig = { speed: { min: 0.5, max: 2.0, step: 0.1 }, intonation: { min: 0.0, max: 2.0, step: 0.1 }, pitch: { min: -0.15, max: 0.15, step: 0.01 }, volume: { min: 0.0, max: 2.0, step: 0.1 }, prePhoneme: { min: 0.0, max: 1.5, step: 0.1 }, postPhoneme: { min: 0.0, max: 1.5, step: 0.1 } };
+                const portraitUrl = ref(null); const samples = ref([]);
+
+                const applyChineseOpt = () => {
+                    params.value = { ...params.value, speed: 1.2, intonation: 1.1, prePhoneme: 0.1, postPhoneme: 0.1 };
+                };
+                const resetParams = () => {
+                    params.value = { speed: 1.1, intonation: 1.0, pitch: 0.0, volume: 1.0, prePhoneme: 0.1, postPhoneme: 0.1, outputSamplingRate: 24000, outputStereo: false, kana: "" };
+                };
+                const copyConfig = () => {
+                    const cfg = { url: window.location.origin + "/tts", method: "POST", headers: { "X-API-Key": apiKey.value || "YOUR_KEY", "Content-Type": "application/json" }, body: { text: text.value, speaker: selectedStyleId.value, ...params.value } };
+                    navigator.clipboard.writeText(JSON.stringify(cfg, null, 2));
+                    alert("API Config Copied!");
+                };
+                const saveConfig = () => {
+                    const name = prompt("Preset Name:");
+                    if (name) {
+                        savedConfigs.value.push({ name, params: { ...params.value } });
+                        localStorage.setItem('vv_configs', JSON.stringify(savedConfigs.value));
+                    }
+                };
+                const loadConfig = () => {
+                    if (selectedConfigIndex.value >= 0) {
+                        params.value = { ...savedConfigs.value[selectedConfigIndex.value].params };
+                    }
+                };
+                const deleteConfig = () => {
+                    if (selectedConfigIndex.value >= 0) {
+                        savedConfigs.value.splice(selectedConfigIndex.value, 1);
+                        selectedConfigIndex.value = -1;
+                        localStorage.setItem('vv_configs', JSON.stringify(savedConfigs.value));
+                    }
+                };
+
+                const selectedStyleDescription = computed(() => {
+                    if (!selectedChar.value.styles || !selectedStyleId.value) return "";
+                    const s = selectedChar.value.styles.find(s => s.id === selectedStyleId.value);
+                    if (!s) return "";
+                    const rawName = s.raw_name || s.name;
+                    const transName = t_style(rawName);
+                    const charTrans = t_char(selectedChar.value.uuid);
+                    return (charTrans.style_notes && charTrans.style_notes[transName]) ? charTrans.style_notes[transName] : "";
+                });
+
+                const filteredCharacters = computed(() => {
+                    if (!searchQuery.value) return characters.value;
+                    const q = searchQuery.value.toLowerCase();
+                    return characters.value.filter(c => c.name.toLowerCase().includes(q) || (t_char(c.uuid).name || "").toLowerCase().includes(q));
+                });
+
+                onMounted(async () => {
+                    try { const res = await fetch('/voices'); characters.value = await res.json(); if (characters.value.length) selectChar(characters.value[0]); } catch {} 
+                    if (apiKey.value) checkKey();
+                    const saved = localStorage.getItem('vv_configs');
+                    if (saved) savedConfigs.value = JSON.parse(saved);
+                });
+
+                const selectChar = async (char) => {
+                    selectedChar.value = char; selectedStyleId.value = char.styles[0].id; portraitUrl.value = null; samples.value = [];
+                    try { const res = await fetch(`/character_info?uuid=${char.uuid}`); const info = await res.json(); portraitUrl.value = info.portrait_url; samples.value = info.sample_urls; } catch {}
+                };
+
+                const checkKey = async () => {
+                    try { const res = await fetch(`/check_key?key=${apiKey.value}`); const data = await res.json(); credits.value = data.credits; if (data.username) { username.value = data.username; isLoggedIn.value = true; } } catch {}
+                };
+
+                const logout = () => { apiKey.value = ""; username.value = ""; credits.value = null; isLoggedIn.value = false; localStorage.removeItem('vv_key'); };
+                const handleLogin = async () => {
+                    try {
+                        const res = await fetch(loginMode.value === 'login' ? '/login' : '/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(loginForm.value) });
+                        const data = await res.json(); apiKey.value = data.api_key; credits.value = data.balance; username.value = data.username || loginForm.value.username; isLoggedIn.value = true;
+                        showLoginModal.value = false; localStorage.setItem('vv_key', apiKey.value); checkKey();
+                    } catch { alert("Error"); }
+                };
+
+                const handleRecharge = async () => {
+                    try { const res = await fetch('/api/recharge/create', { method: 'POST', headers: { 'X-API-Key': apiKey.value }, body: new URLSearchParams({ 'amount_type': selectedPackage.value }) }); const data = await res.json(); window.location.href = data.url; } catch { alert("Error"); }
+                };
+
+                const synthesize = async () => {
+                    loading.value = true;
+                    try {
+                        const res = await fetch('/tts', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-API-Key': apiKey.value }, body: JSON.stringify({ text: text.value, speaker: selectedStyleId.value, speedScale: params.value.speed, pitchScale: params.value.pitch, intonationScale: params.value.intonation, volumeScale: params.value.volume, prePhonemeLength: params.value.prePhoneme, postPhonemeLength: params.value.postPhoneme, outputSamplingRate: params.value.outputSamplingRate, outputStereo: params.value.outputStereo, kana: params.value.kana }) });
+                        const blob = await res.blob(); if (audioUrl.value) URL.revokeObjectURL(audioUrl.value); audioUrl.value = URL.createObjectURL(blob); credits.value -= text.value.length;
+                    } catch { alert("Error"); } finally { loading.value = false; }
+                };
+
+                return { currentLang, languages, t, t_char, t_style, t_param, characters, filteredCharacters, searchQuery, selectedChar, selectedStyleId, text, apiKey, credits, audioUrl, loading, params, paramConfig, portraitUrl, samples, checkKey, selectChar, synthesize, logout, handleLogin, showLoginModal, loginMode, loginForm, isLoggedIn, username, showRechargeModal, rechargeLoading, selectedPackage, handleRecharge, adjustTextareaHeight, textareaRef, selectedStyleDescription, applyChineseOpt, resetParams, copyConfig, saveConfig, loadConfig, deleteConfig, savedConfigs, selectedConfigIndex, loadConfig, deleteConfig, showDocs };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

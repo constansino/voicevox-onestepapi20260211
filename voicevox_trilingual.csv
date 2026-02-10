@@ -1,0 +1,295 @@
+﻿lang,section,Name,UUID,Styles,Description,StylesNote,Key,Value,Tags
+ja,audio_query_param,,,,アクセント句（音素＋アクセント情報）の配列,,accent_phrases,アクセント句,
+ja,audio_query_param,,,,全体の話速倍率,,speedScale,速度倍率,
+ja,audio_query_param,,,,全体の音高倍率,,pitchScale,音高倍率,
+ja,audio_query_param,,,,全体の抑揚倍率,,intonationScale,抑揚倍率,
+ja,audio_query_param,,,,全体の音量倍率,,volumeScale,音量倍率,
+ja,audio_query_param,,,,先頭無音の長さ（秒）,,prePhonemeLength,前音素長,
+ja,audio_query_param,,,,末尾無音の長さ（秒）,,postPhonemeLength,後音素長,
+ja,audio_query_param,,,,区切りの休止長（秒）,,pauseLength,休止長,
+ja,audio_query_param,,,,休止の倍率,,pauseLengthScale,休止長倍率,
+ja,audio_query_param,,,,出力サンプリングレート（Hz）,,outputSamplingRate,出力サンプリングレート,
+ja,audio_query_param,,,,ステレオ出力の有無,,outputStereo,ステレオ出力,
+ja,audio_query_param,,,,読み（かな）指定,,kana,かな（読み）,
+ja,style,,,,標準的で自然,,ノーマル,ノーマル,general
+ja,style,,,,甘くとろけるような口調,,あまあま,あまあま,"cute,affection"
+ja,style,,,,そっけなく刺々しい,,ツンツン,ツンツン,tsundere
+ja,style,,,,大人っぽく艶のある,,セクシー,セクシー,mature
+ja,style,,,,耳元でささやくような小声,,ささやき,ささやき,"asmr,whisper"
+ja,style,,,,こそこそ話すような声,,ヒソヒソ,ヒソヒソ,"asmr,whisper,secret"
+ja,style,,,,力が抜けてへとへと,,ヘロヘロ,ヘロヘロ,lowenergy
+ja,style,,,,涙ぐんだような声,,なみだめ,なみだめ,emotional
+ja,style,,,,威厳のある女王様風,,クイーン,クイーン,regal
+ja,style,,,,嬉しさがにじむ,,喜び,喜び,emotion
+ja,style,,,,ツンとしてキレ気味,,ツンギレ,ツンギレ,"emotion,irritated"
+ja,style,,,,落ち込んだ悲しい,,悲しみ,悲しみ,emotion
+ja,style,,,,標準（ひらがな表記）,,ふつう,ふつう,general
+ja,style,,,,わーい！なテンション,,わーい,わーい,"cheerful,energetic"
+ja,style,,,,おびえてびくびく,,びくびく,びくびく,nervous
+ja,style,,,,短気でおこ,,おこ,おこ,emotion
+ja,style,,,,子どもっぽく泣き声,,びえーん,びえーん,emotion
+ja,style,,,,勢いがあり熱い,,熱血,熱血,energetic
+ja,style,,,,不機嫌でとげとげしい,,不機嫌,不機嫌,emotion
+ja,style,,,,しっとり落ち着いた,,しっとり,しっとり,calm
+ja,style,,,,かなしみ（ひらがな表記）,,かなしみ,かなしみ,emotion
+ja,style,,,,囁き（漢字表記）,,囁き,囁き,"asmr,whisper"
+ja,style,,,,セクシー寄り（キャラ固有）,,セクシー／あん子,セクシー／あん子,mature
+ja,style,,,,泣いているような,,泣き,泣き,emotion
+ja,style,,,,怒りの感情が強い,,怒り,怒り,emotion
+ja,style,,,,ゆったりマイペース,,のんびり,のんびり,calm
+ja,style,,,,楽しくはずむ,,たのしい,たのしい,cheerful
+ja,style,,,,泣きそうな悲しさ,,かなしい,かなしい,emotion
+ja,style,,,,人間版,,人間ver.,人間ver.,variant
+ja,style,,,,ぬいぐるみ版,,ぬいぐるみver.,ぬいぐるみver.,variant
+ja,style,,,,人間（怒り）版,,人間（怒り）ver.,人間（怒り）ver.,variant
+ja,style,,,,鬼版,,鬼ver.,鬼ver.,variant
+ja,style,,,,アナウンサー風に明瞭,,アナウンス,アナウンス,narration
+ja,style,,,,語りかける読み聞かせ,,読み聞かせ,読み聞かせ,"narration,story"
+ja,style,,,,別のフォーム/雰囲気,,第二形態,第二形態,variant
+ja,style,,,,幼い少女っぽい,,ロリ,ロリ,"cute,childlike"
+ja,style,,,,気負わず楽々,,楽々,楽々,calm
+ja,style,,,,怖がっている,,恐怖,恐怖,emotion
+ja,style,,,,内緒で話すような声,,内緒話,内緒話,"asmr,secret"
+ja,style,,,,落ち着いたトーン,,おちつき,おちつき,calm
+ja,style,,,,うきうき弾む,,うきうき,うきうき,cheerful
+ja,style,,,,人見知りで控えめ,,人見知り,人見知り,nervous
+ja,style,,,,びっくりした,,おどろき,おどろき,emotion
+ja,style,,,,怖がりでおどおど,,こわがり,こわがり,nervous
+ja,style,,,,へろへろ（ひらがな表記）,,へろへろ,へろへろ,lowenergy
+ja,style,,,,元気いっぱい,,元気,元気,energetic
+ja,style,,,,あざとく可愛い,,ぶりっ子,ぶりっ子,cute
+ja,style,,,,ボーイッシュ,,ボーイ,ボーイ,variant
+ja,style,,,,低血圧っぽくぼんやり,,低血圧,低血圧,lowenergy
+ja,style,,,,覚醒して鋭い,,覚醒,覚醒,intense
+ja,style,,,,実況っぽいテンション,,実況風,実況風,commentary
+ja,style,,,,おどおど不安,,おどおど,おどおど,nervous
+ja,style,,,,絶望し打ちひしがれる,,絶望と敗北,絶望と敗北,emotion
+ja,character,四国めたん,7ffcb7ce-00ec-4bdc-82cd-45a8889e43ff,"ノーマル, あまあま, ツンツン, セクシー, ささやき, ヒソヒソ",はっきりした芯のある声,"ノーマル: 標準的で自然 [general] ; あまあま: 甘くとろけるような口調 [cute,affection] ; ツンツン: そっけなく刺々しい [tsundere] ; セクシー: 大人っぽく艶のある [mature] ; ささやき: 耳元でささやくような小声 [asmr,whisper] ; ヒソヒソ: こそこそ話すような声 [asmr,whisper,secret]",,,
+ja,character,ずんだもん,388f246b-8c41-4ac1-8e2d-5d79f3ff56d9,"ノーマル, あまあま, ツンツン, セクシー, ささやき, ヒソヒソ, ヘロヘロ, なみだめ",子供っぽい高めの声,"ノーマル: 標準的で自然 [general] ; あまあま: 甘くとろけるような口調 [cute,affection] ; ツンツン: そっけなく刺々しい [tsundere] ; セクシー: 大人っぽく艶のある [mature] ; ささやき: 耳元でささやくような小声 [asmr,whisper] ; ヒソヒソ: こそこそ話すような声 [asmr,whisper,secret] ; ヘロヘロ: 力が抜けてへとへと [lowenergy] ; なみだめ: 涙ぐんだような声 [emotional]",,,
+ja,character,春日部つむぎ,35b2c544-660e-401e-b503-0e14c635303a,ノーマル,元気な明るい声,ノーマル: 標準的で自然 [general],,,
+ja,character,雨晴はう,3474ee95-c274-47f9-aa1a-8322163d96f1,ノーマル,優しく可愛い声,ノーマル: 標準的で自然 [general],,,
+ja,character,波音リツ,b1a81618-b27b-40d2-b0ea-27a9ad408c4b,"ノーマル, クイーン",低めのクールな声,ノーマル: 標準的で自然 [general] ; クイーン: 威厳のある女王様風 [regal],,,
+ja,character,玄野武宏,c30dc15a-0992-4f8d-8bb8-ad3b314e6a6f,"ノーマル, 喜び, ツンギレ, 悲しみ",爽やかな青年の声,"ノーマル: 標準的で自然 [general] ; 喜び: 嬉しさがにじむ [emotion] ; ツンギレ: ツンとしてキレ気味 [emotion,irritated] ; 悲しみ: 落ち込んだ悲しい [emotion]",,,
+ja,character,白上虎太郎,e5020595-5c5d-4e87-b849-270a518d0dcf,"ふつう, わーい, びくびく, おこ, びえーん",声変わり直後の少年の声,"ふつう: 標準（ひらがな表記） [general] ; わーい: わーい！なテンション [cheerful,energetic] ; びくびく: おびえてびくびく [nervous] ; おこ: 短気でおこ [emotion] ; びえーん: 子どもっぽく泣き声 [emotion]",,,
+ja,character,青山龍星,4f51116a-d9ee-4516-925d-21f183e2afad,"ノーマル, 熱血, 不機嫌, 喜び, しっとり, かなしみ, 囁き",重厚で低音な声,"ノーマル: 標準的で自然 [general] ; 熱血: 勢いがあり熱い [energetic] ; 不機嫌: 不機嫌でとげとげしい [emotion] ; 喜び: 嬉しさがにじむ [emotion] ; しっとり: しっとり落ち着いた [calm] ; かなしみ: かなしみ（ひらがな表記） [emotion] ; 囁き: 囁き（漢字表記） [asmr,whisper]",,,
+ja,character,冥鳴ひまり,8eaad775-3119-417e-8cf4-2a10bfd592c8,ノーマル,柔らかく温かい声,ノーマル: 標準的で自然 [general],,,
+ja,character,九州そら,481fb609-6446-4870-9f46-90c4dd623403,"ノーマル, あまあま, ツンツン, セクシー, ささやき",気品のある大人な声,"ノーマル: 標準的で自然 [general] ; あまあま: 甘くとろけるような口調 [cute,affection] ; ツンツン: そっけなく刺々しい [tsundere] ; セクシー: 大人っぽく艶のある [mature] ; ささやき: 耳元でささやくような小声 [asmr,whisper]",,,
+ja,character,もち子さん,9f3ee141-26ad-437e-97bd-d22298d02ad2,"ノーマル, セクシー／あん子, 泣き, 怒り, 喜び, のんびり",明瞭で穏やかな声,ノーマル: 標準的で自然 [general] ; セクシー／あん子: セクシー寄り（キャラ固有） [mature] ; 泣き: 泣いているような [emotion] ; 怒り: 怒りの感情が強い [emotion] ; 喜び: 嬉しさがにじむ [emotion] ; のんびり: ゆったりマイペース [calm],,,
+ja,character,剣崎雌雄,1a17ca16-7ee5-4ea5-b191-2f02ace24d21,ノーマル,安心感のある落ち着いた声,ノーマル: 標準的で自然 [general],,,
+ja,character,WhiteCUL,67d5d8da-acd7-4207-bb10-b5542d3a663b,"ノーマル, たのしい, かなしい, びえーん",聞き心地のよい率直な声,ノーマル: 標準的で自然 [general] ; たのしい: 楽しくはずむ [cheerful] ; かなしい: 泣きそうな悲しさ [emotion] ; びえーん: 子どもっぽく泣き声 [emotion],,,
+ja,character,後鬼,0f56c2f2-644c-49c9-8989-94e11f7129d0,"人間ver., ぬいぐるみver., 人間（怒り）ver., 鬼ver.",包容力のある奥ゆかしい声,人間ver.: 人間版 [variant] ; ぬいぐるみver.: ぬいぐるみ版 [variant] ; 人間（怒り）ver.: 人間（怒り）版 [variant] ; 鬼ver.: 鬼版 [variant],,,
+ja,character,No.7,044830d2-f23b-44d6-ac0d-b5d733caa900,"ノーマル, アナウンス, 読み聞かせ",しっかりした凛々しい声,"ノーマル: 標準的で自然 [general] ; アナウンス: アナウンサー風に明瞭 [narration] ; 読み聞かせ: 語りかける読み聞かせ [narration,story]",,,
+ja,character,ちび式じい,468b8e94-9da4-4f7a-8715-a22a48844f9e,ノーマル,親しみのある嗄れ声,ノーマル: 標準的で自然 [general],,,
+ja,character,櫻歌ミコ,0693554c-338e-4790-8982-b9c6d476dc69,"ノーマル, 第二形態, ロリ",かわいらしい少女の声,"ノーマル: 標準的で自然 [general] ; 第二形態: 別のフォーム/雰囲気 [variant] ; ロリ: 幼い少女っぽい [cute,childlike]",,,
+ja,character,小夜/SAYO,a8cc6d22-aad0-4ab8-bf1e-2f843924164a,ノーマル,和やかで温厚な声,ノーマル: 標準的で自然 [general],,,
+ja,character,ナースロボ＿タイプＴ,882a636f-3bac-431a-966d-c5e6bba9f949,"ノーマル, 楽々, 恐怖, 内緒話",冷静で慎み深い声,"ノーマル: 標準的で自然 [general] ; 楽々: 気負わず楽々 [calm] ; 恐怖: 怖がっている [emotion] ; 内緒話: 内緒で話すような声 [asmr,secret]",,,
+ja,character,†聖騎士 紅桜†,471e39d2-fb11-4c8c-8d89-4b322d2498e0,ノーマル,快活でハキハキした声,ノーマル: 標準的で自然 [general],,,
+ja,character,雀松朱司,0acebdee-a4a5-4e12-a695-e19609728e30,ノーマル,物静かで安定した声,ノーマル: 標準的で自然 [general],,,
+ja,character,麒ヶ島宗麟,7d1e7ba7-f957-40e5-a3fc-da49f769ab65,ノーマル,渋いおじさん声,ノーマル: 標準的で自然 [general],,,
+ja,character,春歌ナナ,ba5d2428-f7e0-4c20-ac41-9dd56e9178b4,ノーマル,はつらつとした力強い声,ノーマル: 標準的で自然 [general],,,
+ja,character,猫使アル,00a5c10c-d3bd-459f-83fd-43180b521a44,"ノーマル, おちつき, うきうき",厚みのある気さくな声,ノーマル: 標準的で自然 [general] ; おちつき: 落ち着いたトーン [calm] ; うきうき: うきうき弾む [cheerful],,,
+ja,character,猫使ビィ,c20a2254-0349-4470-9fc8-e5c0f8cf3404,"ノーマル, おちつき, 人見知り",ピュアであどけない声,ノーマル: 標準的で自然 [general] ; おちつき: 落ち着いたトーン [calm] ; 人見知り: 人見知りで控えめ [nervous],,,
+ja,character,中国うさぎ,1f18ffc3-47ea-4ce0-9829-0576d03a7ec8,"ノーマル, おどろき, こわがり, へろへろ",幽玄で初々しい声,ノーマル: 標準的で自然 [general] ; おどろき: びっくりした [emotion] ; こわがり: 怖がりでおどおど [nervous] ; へろへろ: へろへろ（ひらがな表記） [lowenergy],,,
+ja,character,栗田まろん,04dbd989-32d0-40b4-9e71-17c920f2a8a9,ノーマル,深みのある中性的な声,ノーマル: 標準的で自然 [general],,,
+ja,character,あいえるたん,dda44ade-5f9c-4a3a-9d2c-2a976c7476d9,ノーマル,心地よい物柔らかな声,ノーマル: 標準的で自然 [general],,,
+ja,character,満別花丸,287aa49f-e56b-4530-a469-855776c84a8d,"ノーマル, 元気, ささやき, ぶりっ子, ボーイ",生き生きとした際立つ声,"ノーマル: 標準的で自然 [general] ; 元気: 元気いっぱい [energetic] ; ささやき: 耳元でささやくような小声 [asmr,whisper] ; ぶりっ子: あざとく可愛い [cute] ; ボーイ: ボーイッシュ [variant]",,,
+ja,character,琴詠ニア,97a4af4b-086e-4efd-b125-7ae2da85e697,ノーマル,滑らかで無機質な声,ノーマル: 標準的で自然 [general],,,
+ja,character,Voidoll,0ebe2c7d-96f3-4f0e-a2e3-ae13fe27c403,ノーマル,慎ましやかで電子的な声,ノーマル: 標準的で自然 [general],,,
+ja,character,ぞん子,0156da66-4300-474a-a398-49eb2e8dd853,"ノーマル, 低血圧, 覚醒, 実況風",熱血的でありありとした声,ノーマル: 標準的で自然 [general] ; 低血圧: 低血圧っぽくぼんやり [lowenergy] ; 覚醒: 覚醒して鋭い [intense] ; 実況風: 実況っぽいテンション [commentary],,,
+ja,character,中部つるぎ,4614a7de-9829-465d-9791-97eb8a5f9b86,"ノーマル, 怒り, ヒソヒソ, おどおど, 絶望と敗北",凛然とした存在感のある声,"ノーマル: 標準的で自然 [general] ; 怒り: 怒りの感情が強い [emotion] ; ヒソヒソ: こそこそ話すような声 [asmr,whisper,secret] ; おどおど: おどおど不安 [nervous] ; 絶望と敗北: 絶望し打ちひしがれる [emotion]",,,
+en,audio_query_param,,,,Array of accent-phrase objects,,accent_phrases,Accent phrases,
+en,audio_query_param,,,,Overall speech speed multiplier,,speedScale,Speed scale,
+en,audio_query_param,,,,Overall pitch multiplier,,pitchScale,Pitch scale,
+en,audio_query_param,,,,Overall intonation multiplier,,intonationScale,Intonation scale,
+en,audio_query_param,,,,Overall volume multiplier,,volumeScale,Volume scale,
+en,audio_query_param,,,,Leading silence length (seconds),,prePhonemeLength,Pre-phoneme length,
+en,audio_query_param,,,,Trailing silence length (seconds),,postPhonemeLength,Post-phoneme length,
+en,audio_query_param,,,,Pause length (seconds),,pauseLength,Pause length,
+en,audio_query_param,,,,Pause length multiplier,,pauseLengthScale,Pause length scale,
+en,audio_query_param,,,,Output sampling rate (Hz),,outputSamplingRate,Output sampling rate,
+en,audio_query_param,,,,Whether to output stereo,,outputStereo,Stereo output,
+en,audio_query_param,,,,Kana reading override,,kana,Kana (reading),
+en,style,,,,"Standard, natural delivery",,ノーマル,Normal,general
+en,style,,,,"Extra sweet, clingy/affectionate tone",,あまあま,Sweet / Affectionate,"cute,affection"
+en,style,,,,"Aloof, sharp, tsundere vibe",,ツンツン,Tsundere / Sharp,tsundere
+en,style,,,,"Mature, sensual tone",,セクシー,Sexy,mature
+en,style,,,,Close-up whispering voice,,ささやき,Whisper,"asmr,whisper"
+en,style,,,,"Hushed, secretive speech",,ヒソヒソ,Hushed,"asmr,whisper,secret"
+en,style,,,,"Worn-out, drained",,ヘロヘロ,Exhausted,lowenergy
+en,style,,,,On-the-verge-of-tears tone,,なみだめ,Tearful,emotional
+en,style,,,,"Regal, queenly tone",,クイーン,Queen,regal
+en,style,,,,"Bright, joyful tone",,喜び,Joy,emotion
+en,style,,,,Tsun + snapping irritation,,ツンギレ,Snappy,"emotion,irritated"
+en,style,,,,Downcast sadness,,悲しみ,Sadness,emotion
+en,style,,,,Normal (hiragana label),,ふつう,Normal,general
+en,style,,,,High-energy 'Yay!' excitement,,わーい,Yay!,"cheerful,energetic"
+en,style,,,,"Timid, trembling",,びくびく,Nervous,nervous
+en,style,,,,Quick-tempered angry,,おこ,Angry,emotion
+en,style,,,,Childlike crying 'waaah',,びえーん,Waaah (cry),emotion
+en,style,,,,"Intense, hot-blooded energy",,熱血,Hot-blooded,energetic
+en,style,,,,"Grumpy, prickly",,不機嫌,Grumpy,emotion
+en,style,,,,"Mellow, moist/soft calm",,しっとり,Mellow,calm
+en,style,,,,Sadness (hiragana label),,かなしみ,Sadness,emotion
+en,style,,,,Whisper (kanji label),,囁き,Whisper,"asmr,whisper"
+en,style,,,,Sexy-leaning (character-specific),,セクシー／あん子,Sexy / Anko,mature
+en,style,,,,Crying voice,,泣き,Crying,emotion
+en,style,,,,Angry delivery,,怒り,Anger,emotion
+en,style,,,,"Relaxed, easygoing",,のんびり,Laid-back,calm
+en,style,,,,"Bouncy, fun tone",,たのしい,Fun,cheerful
+en,style,,,,Sad/tearful,,かなしい,Sad,emotion
+en,style,,,,Human version,,人間ver.,Human ver.,variant
+en,style,,,,Stuffed-toy version,,ぬいぐるみver.,Plushie ver.,variant
+en,style,,,,Human version (angry),,人間（怒り）ver.,Human (Angry) ver.,variant
+en,style,,,,Oni (demon) version,,鬼ver.,Oni ver.,variant
+en,style,,,,Clear announcer style,,アナウンス,Announce,narration
+en,style,,,,Storytelling read-aloud,,読み聞かせ,Read-aloud,"narration,story"
+en,style,,,,Alternate form / vibe,,第二形態,Second form,variant
+en,style,,,,Very childlike/young-girl tone,,ロリ,Loli,"cute,childlike"
+en,style,,,,"Effortless, relaxed",,楽々,Easygoing,calm
+en,style,,,,Fearful,,恐怖,Fear,emotion
+en,style,,,,As if speaking secretly,,内緒話,Secret talk,"asmr,secret"
+en,style,,,,"Calm, steady",,おちつき,Calm,calm
+en,style,,,,Upbeat excitement,,うきうき,Excited,cheerful
+en,style,,,,"Shy, reserved",,人見知り,Shy,nervous
+en,style,,,,Surprised tone,,おどろき,Surprised,emotion
+en,style,,,,"Timid, scared",,こわがり,Timid,nervous
+en,style,,,,Exhausted (hiragana label),,へろへろ,Exhausted,lowenergy
+en,style,,,,Full of energy,,元気,Energetic,energetic
+en,style,,,,"Cutesy, coquettish",,ぶりっ子,Coquettish,cute
+en,style,,,,Boyish vibe,,ボーイ,Boyish,variant
+en,style,,,,"Sluggish, low-energy",,低血圧,Low-energy,lowenergy
+en,style,,,,"Awakened, sharp/intense",,覚醒,Awakened,intense
+en,style,,,,Live-commentary style,,実況風,Commentary,commentary
+en,style,,,,"Uneasy, fumbling",,おどおど,Fumbling,nervous
+en,style,,,,Crushed by despair/defeat,,絶望と敗北,Despair & defeat,emotion
+en,character,Shikoku Metan,7ffcb7ce-00ec-4bdc-82cd-45a8889e43ff,"ノーマル, あまあま, ツンツン, セクシー, ささやき, ヒソヒソ","A clear, strong voice with a solid core","Normal: Standard, natural delivery [general] ; Sweet / Affectionate: Extra sweet, clingy/affectionate tone [cute,affection] ; Tsundere / Sharp: Aloof, sharp, tsundere vibe [tsundere] ; Sexy: Mature, sensual tone [mature] ; Whisper: Close-up whispering voice [asmr,whisper] ; Hushed: Hushed, secretive speech [asmr,whisper,secret]",,,
+en,character,Zundamon,388f246b-8c41-4ac1-8e2d-5d79f3ff56d9,"ノーマル, あまあま, ツンツン, セクシー, ささやき, ヒソヒソ, ヘロヘロ, なみだめ","A childlike, high-pitched voice","Normal: Standard, natural delivery [general] ; Sweet / Affectionate: Extra sweet, clingy/affectionate tone [cute,affection] ; Tsundere / Sharp: Aloof, sharp, tsundere vibe [tsundere] ; Sexy: Mature, sensual tone [mature] ; Whisper: Close-up whispering voice [asmr,whisper] ; Hushed: Hushed, secretive speech [asmr,whisper,secret] ; Exhausted: Worn-out, drained [lowenergy] ; Tearful: On-the-verge-of-tears tone [emotional]",,,
+en,character,Kasukabe Tsumugi,35b2c544-660e-401e-b503-0e14c635303a,ノーマル,"An energetic, bright voice","Normal: Standard, natural delivery [general]",,,
+en,character,Amehare Hau,3474ee95-c274-47f9-aa1a-8322163d96f1,ノーマル,"A gentle, cute voice","Normal: Standard, natural delivery [general]",,,
+en,character,Namine Ritsu,b1a81618-b27b-40d2-b0ea-27a9ad408c4b,"ノーマル, クイーン",A cool voice with a lower pitch,"Normal: Standard, natural delivery [general] ; Queen: Regal, queenly tone [regal]",,,
+en,character,Kurono Takehiro,c30dc15a-0992-4f8d-8bb8-ad3b314e6a6f,"ノーマル, 喜び, ツンギレ, 悲しみ",A refreshing young adult male voice,"Normal: Standard, natural delivery [general] ; Joy: Bright, joyful tone [emotion] ; Snappy: Tsun + snapping irritation [emotion,irritated] ; Sadness: Downcast sadness [emotion]",,,
+en,character,Shirakami Kotaro,e5020595-5c5d-4e87-b849-270a518d0dcf,"ふつう, わーい, びくびく, おこ, びえーん",A boyish voice right after voice change,"Normal: Normal (hiragana label) [general] ; Yay!: High-energy 'Yay!' excitement [cheerful,energetic] ; Nervous: Timid, trembling [nervous] ; Angry: Quick-tempered angry [emotion] ; Waaah (cry): Childlike crying 'waaah' [emotion]",,,
+en,character,Aoyama Ryusei,4f51116a-d9ee-4516-925d-21f183e2afad,"ノーマル, 熱血, 不機嫌, 喜び, しっとり, かなしみ, 囁き","A heavy, deep low voice","Normal: Standard, natural delivery [general] ; Hot-blooded: Intense, hot-blooded energy [energetic] ; Grumpy: Grumpy, prickly [emotion] ; Joy: Bright, joyful tone [emotion] ; Mellow: Mellow, moist/soft calm [calm] ; Sadness: Sadness (hiragana label) [emotion] ; Whisper: Whisper (kanji label) [asmr,whisper]",,,
+en,character,Meimei Himari,8eaad775-3119-417e-8cf4-2a10bfd592c8,ノーマル,"A soft, warm voice","Normal: Standard, natural delivery [general]",,,
+en,character,Kyushu Sora,481fb609-6446-4870-9f46-90c4dd623403,"ノーマル, あまあま, ツンツン, セクシー, ささやき","A refined, adult-like voice with poise","Normal: Standard, natural delivery [general] ; Sweet / Affectionate: Extra sweet, clingy/affectionate tone [cute,affection] ; Tsundere / Sharp: Aloof, sharp, tsundere vibe [tsundere] ; Sexy: Mature, sensual tone [mature] ; Whisper: Close-up whispering voice [asmr,whisper]",,,
+en,character,Mochiko-san,9f3ee141-26ad-437e-97bd-d22298d02ad2,"ノーマル, セクシー／あん子, 泣き, 怒り, 喜び, のんびり","A clear, calm voice","Normal: Standard, natural delivery [general] ; Sexy / Anko: Sexy-leaning (character-specific) [mature] ; Crying: Crying voice [emotion] ; Anger: Angry delivery [emotion] ; Joy: Bright, joyful tone [emotion] ; Laid-back: Relaxed, easygoing [calm]",,,
+en,character,Kensaki Mesuo,1a17ca16-7ee5-4ea5-b191-2f02ace24d21,ノーマル,"A steady, reassuring voice","Normal: Standard, natural delivery [general]",,,
+en,character,WhiteCUL,67d5d8da-acd7-4207-bb10-b5542d3a663b,"ノーマル, たのしい, かなしい, びえーん","A straightforward, pleasant-to-listen voice","Normal: Standard, natural delivery [general] ; Fun: Bouncy, fun tone [cheerful] ; Sad: Sad/tearful [emotion] ; Waaah (cry): Childlike crying 'waaah' [emotion]",,,
+en,character,Goki,0f56c2f2-644c-49c9-8989-94e11f7129d0,"人間ver., ぬいぐるみver., 人間（怒り）ver., 鬼ver.",A reserved voice with a sense of embrace,Human ver.: Human version [variant] ; Plushie ver.: Stuffed-toy version [variant] ; Human (Angry) ver.: Human version (angry) [variant] ; Oni ver.: Oni (demon) version [variant],,,
+en,character,No.7,044830d2-f23b-44d6-ac0d-b5d733caa900,"ノーマル, アナウンス, 読み聞かせ","A firm, dignified voice","Normal: Standard, natural delivery [general] ; Announce: Clear announcer style [narration] ; Read-aloud: Storytelling read-aloud [narration,story]",,,
+en,character,Chibi-shiki Ji-i,468b8e94-9da4-4f7a-8715-a22a48844f9e,ノーマル,"A friendly, husky voice","Normal: Standard, natural delivery [general]",,,
+en,character,Ouka Miko,0693554c-338e-4790-8982-b9c6d476dc69,"ノーマル, 第二形態, ロリ",A lovely young girl’s voice,"Normal: Standard, natural delivery [general] ; Second form: Alternate form / vibe [variant] ; Loli: Very childlike/young-girl tone [cute,childlike]",,,
+en,character,Sayo,a8cc6d22-aad0-4ab8-bf1e-2f843924164a,ノーマル,"A mild, gentle voice","Normal: Standard, natural delivery [general]",,,
+en,character,NurseRobot_TypeT,882a636f-3bac-431a-966d-c5e6bba9f949,"ノーマル, 楽々, 恐怖, 内緒話","A composed, modest voice","Normal: Standard, natural delivery [general] ; Easygoing: Effortless, relaxed [calm] ; Fear: Fearful [emotion] ; Secret talk: As if speaking secretly [asmr,secret]",,,
+en,character,Holy Knight Benizakura,471e39d2-fb11-4c8c-8d89-4b322d2498e0,ノーマル,"A lively, crisp voice","Normal: Standard, natural delivery [general]",,,
+en,character,Suzumatsu Akashi,0acebdee-a4a5-4e12-a695-e19609728e30,ノーマル,"A quiet, stable voice","Normal: Standard, natural delivery [general]",,,
+en,character,Kigashima Sorin,7d1e7ba7-f957-40e5-a3fc-da49f769ab65,ノーマル,"A gritty, mature ‘old man’ voice","Normal: Standard, natural delivery [general]",,,
+en,character,Haruka Nana,ba5d2428-f7e0-4c20-ac41-9dd56e9178b4,ノーマル,"A lively, powerful voice","Normal: Standard, natural delivery [general]",,,
+en,character,Nekotsukai Aru,00a5c10c-d3bd-459f-83fd-43180b521a44,"ノーマル, おちつき, うきうき",A friendly voice with weight/thickness,"Normal: Standard, natural delivery [general] ; Calm: Calm, steady [calm] ; Excited: Upbeat excitement [cheerful]",,,
+en,character,Nekotsukai Bii,c20a2254-0349-4470-9fc8-e5c0f8cf3404,"ノーマル, おちつき, 人見知り","A pure, innocent voice","Normal: Standard, natural delivery [general] ; Calm: Calm, steady [calm] ; Shy: Shy, reserved [nervous]",,,
+en,character,Chugoku Usagi,1f18ffc3-47ea-4ce0-9829-0576d03a7ec8,"ノーマル, おどろき, こわがり, へろへろ","An ethereal, fresh voice","Normal: Standard, natural delivery [general] ; Surprised: Surprised tone [emotion] ; Timid: Timid, scared [nervous] ; Exhausted: Exhausted (hiragana label) [lowenergy]",,,
+en,character,Kurita Marron,04dbd989-32d0-40b4-9e71-17c920f2a8a9,ノーマル,"A deep, androgynous voice","Normal: Standard, natural delivery [general]",,,
+en,character,Ieru-tan,dda44ade-5f9c-4a3a-9d2c-2a976c7476d9,ノーマル,A soft-spoken voice that feels pleasant,"Normal: Standard, natural delivery [general]",,,
+en,character,Manbetsu Hanamaru,287aa49f-e56b-4530-a469-855776c84a8d,"ノーマル, 元気, ささやき, ぶりっ子, ボーイ","A vivid, lively, standout voice","Normal: Standard, natural delivery [general] ; Energetic: Full of energy [energetic] ; Whisper: Close-up whispering voice [asmr,whisper] ; Coquettish: Cutesy, coquettish [cute] ; Boyish: Boyish vibe [variant]",,,
+en,character,Kotoe Nia,97a4af4b-086e-4efd-b125-7ae2da85e697,ノーマル,"A smooth, inorganic voice","Normal: Standard, natural delivery [general]",,,
+en,character,Voidoll,0ebe2c7d-96f3-4f0e-a2e3-ae13fe27c403,ノーマル,"A modest, electronic-sounding voice","Normal: Standard, natural delivery [general]",,,
+en,character,Zonko,0156da66-4300-474a-a398-49eb2e8dd853,"ノーマル, 低血圧, 覚醒, 実況風","A hot-blooded, vivid voice","Normal: Standard, natural delivery [general] ; Low-energy: Sluggish, low-energy [lowenergy] ; Awakened: Awakened, sharp/intense [intense] ; Commentary: Live-commentary style [commentary]",,,
+en,character,Chubu Tsurugi,4614a7de-9829-465d-9791-97eb8a5f9b86,"ノーマル, 怒り, ヒソヒソ, おどおど, 絶望と敗北",A dignified voice with strong presence,"Normal: Standard, natural delivery [general] ; Anger: Angry delivery [emotion] ; Hushed: Hushed, secretive speech [asmr,whisper,secret] ; Fumbling: Uneasy, fumbling [nervous] ; Despair & defeat: Crushed by despair/defeat [emotion]",,,
+zh,audio_query_param,,,,重音短语对象数组,,accent_phrases,重音短语,
+zh,audio_query_param,,,,整体语速倍率,,speedScale,语速倍率,
+zh,audio_query_param,,,,整体音高倍率,,pitchScale,音高倍率,
+zh,audio_query_param,,,,整体语调起伏倍率,,intonationScale,语调倍率,
+zh,audio_query_param,,,,整体音量倍率,,volumeScale,音量倍率,
+zh,audio_query_param,,,,开头静音时长（秒）,,prePhonemeLength,前音素时长,
+zh,audio_query_param,,,,结尾静音时长（秒）,,postPhonemeLength,后音素时长,
+zh,audio_query_param,,,,停顿时长（秒）,,pauseLength,停顿时长,
+zh,audio_query_param,,,,停顿倍率,,pauseLengthScale,停顿倍率,
+zh,audio_query_param,,,,输出采样率（Hz）,,outputSamplingRate,输出采样率,
+zh,audio_query_param,,,,是否输出立体声,,outputStereo,立体声输出,
+zh,audio_query_param,,,,假名读音指定,,kana,假名（读音）,
+zh,style,,,,标准自然的语气,,ノーマル,普通,general
+zh,style,,,,软糯黏人、撒娇感,,あまあま,甜甜/撒娇,"cute,affection"
+zh,style,,,,冷淡别扭、有点刺,,ツンツン,傲娇/别扭,tsundere
+zh,style,,,,成熟妩媚的感觉,,セクシー,性感,mature
+zh,style,,,,贴耳低声说话,,ささやき,耳语,"asmr,whisper"
+zh,style,,,,偷偷小声说话,,ヒソヒソ,小声密语,"asmr,whisper,secret"
+zh,style,,,,疲惫虚脱、没力气,,ヘロヘロ,虚脱/没力气,lowenergy
+zh,style,,,,要哭不哭的哭腔,,なみだめ,含泪/哭腔,emotional
+zh,style,,,,威严女王感,,クイーン,女王,regal
+zh,style,,,,开心喜悦,,喜び,喜悦,emotion
+zh,style,,,,冷淡中带爆发的烦躁,,ツンギレ,别扭爆发,"emotion,irritated"
+zh,style,,,,低落悲伤,,悲しみ,悲伤,emotion
+zh,style,,,,普通（平假名表记）,,ふつう,普通,general
+zh,style,,,,很嗨的开心,,わーい,耶!/开心,"cheerful,energetic"
+zh,style,,,,害怕发抖,,びくびく,胆怯/发抖,nervous
+zh,style,,,,气呼呼的生气,,おこ,生气,emotion
+zh,style,,,,小孩子般的哭哭,,びえーん,哇哇哭,emotion
+zh,style,,,,激情热血,,熱血,热血,energetic
+zh,style,,,,不高兴、有点刺,,不機嫌,不爽/不高兴,emotion
+zh,style,,,,更柔和沉静,,しっとり,湿润/柔和,calm
+zh,style,,,,悲伤（平假名表记）,,かなしみ,悲伤,emotion
+zh,style,,,,耳语（汉字表记）,,囁き,耳语,"asmr,whisper"
+zh,style,,,,偏性感（角色固有）,,セクシー／あん子,性感/あん子,mature
+zh,style,,,,哭着说话,,泣き,哭泣,emotion
+zh,style,,,,愤怒语气,,怒り,愤怒,emotion
+zh,style,,,,慢悠悠、随性,,のんびり,悠闲,calm
+zh,style,,,,轻快愉快,,たのしい,开心/愉快,cheerful
+zh,style,,,,难过伤心,,かなしい,伤心,emotion
+zh,style,,,,人类版本,,人間ver.,人类ver.,variant
+zh,style,,,,玩偶版本,,ぬいぐるみver.,玩偶ver.,variant
+zh,style,,,,人类（愤怒）版本,,人間（怒り）ver.,人类（愤怒）ver.,variant
+zh,style,,,,鬼版本,,鬼ver.,鬼ver.,variant
+zh,style,,,,像播音员一样清晰,,アナウンス,播报,narration
+zh,style,,,,讲故事式朗读,,読み聞かせ,朗读/讲故事,"narration,story"
+zh,style,,,,另一种形态/氛围,,第二形態,第二形态,variant
+zh,style,,,,更幼态的少女感,,ロリ,萝莉,"cute,childlike"
+zh,style,,,,轻松不费力,,楽々,轻松,calm
+zh,style,,,,害怕的语气,,恐怖,恐惧,emotion
+zh,style,,,,像在说悄悄话,,内緒話,悄悄话,"asmr,secret"
+zh,style,,,,沉稳平静,,おちつき,沉稳,calm
+zh,style,,,,兴奋雀跃,,うきうき,兴奋,cheerful
+zh,style,,,,怕生拘谨,,人見知り,怕生,nervous
+zh,style,,,,惊讶语气,,おどろき,惊讶,emotion
+zh,style,,,,胆小害怕,,こわがり,胆小,nervous
+zh,style,,,,虚脱（平假名表记）,,へろへろ,虚脱/没力气,lowenergy
+zh,style,,,,活力满满,,元気,元气,energetic
+zh,style,,,,刻意装可爱,,ぶりっ子,装可爱,cute
+zh,style,,,,偏男孩子气,,ボーイ,男孩子气,variant
+zh,style,,,,懒懒的低能量,,低血圧,低血压/低气压,lowenergy
+zh,style,,,,觉醒后的强烈感,,覚醒,觉醒,intense
+zh,style,,,,像直播解说一样,,実況風,解说风,commentary
+zh,style,,,,不安畏缩,,おどおど,畏畏缩缩,nervous
+zh,style,,,,被绝望击垮的感觉,,絶望と敗北,绝望与败北,emotion
+zh,character,四国玫碳,7ffcb7ce-00ec-4bdc-82cd-45a8889e43ff,"ノーマル, あまあま, ツンツン, セクシー, ささやき, ヒソヒソ",清晰、有“芯”的扎实声线,"普通: 标准自然的语气 [general] ; 甜甜/撒娇: 软糯黏人、撒娇感 [cute,affection] ; 傲娇/别扭: 冷淡别扭、有点刺 [tsundere] ; 性感: 成熟妩媚的感觉 [mature] ; 耳语: 贴耳低声说话 [asmr,whisper] ; 小声密语: 偷偷小声说话 [asmr,whisper,secret]",,,
+zh,character,俊达萌,388f246b-8c41-4ac1-8e2d-5d79f3ff56d9,"ノーマル, あまあま, ツンツン, セクシー, ささやき, ヒソヒソ, ヘロヘロ, なみだめ",偏小孩子感的高音声线,"普通: 标准自然的语气 [general] ; 甜甜/撒娇: 软糯黏人、撒娇感 [cute,affection] ; 傲娇/别扭: 冷淡别扭、有点刺 [tsundere] ; 性感: 成熟妩媚的感觉 [mature] ; 耳语: 贴耳低声说话 [asmr,whisper] ; 小声密语: 偷偷小声说话 [asmr,whisper,secret] ; 虚脱/没力气: 疲惫虚脱、没力气 [lowenergy] ; 含泪/哭腔: 要哭不哭的哭腔 [emotional]",,,
+zh,character,春日部䌷,35b2c544-660e-401e-b503-0e14c635303a,ノーマル,元气、明亮的声线,普通: 标准自然的语气 [general],,,
+zh,character,雨晴Hau,3474ee95-c274-47f9-aa1a-8322163d96f1,ノーマル,温柔可爱的声线,普通: 标准自然的语气 [general],,,
+zh,character,波音律,b1a81618-b27b-40d2-b0ea-27a9ad408c4b,"ノーマル, クイーン",偏低、冷静酷感的声线,普通: 标准自然的语气 [general] ; 女王: 威严女王感 [regal],,,
+zh,character,玄野武宏,c30dc15a-0992-4f8d-8bb8-ad3b314e6a6f,"ノーマル, 喜び, ツンギレ, 悲しみ",清爽的青年男声,"普通: 标准自然的语气 [general] ; 喜悦: 开心喜悦 [emotion] ; 别扭爆发: 冷淡中带爆发的烦躁 [emotion,irritated] ; 悲伤: 低落悲伤 [emotion]",,,
+zh,character,白上虎太郎,e5020595-5c5d-4e87-b849-270a518d0dcf,"ふつう, わーい, びくびく, おこ, びえーん",刚变声不久的少年声,"普通: 普通（平假名表记） [general] ; 耶!/开心: 很嗨的开心 [cheerful,energetic] ; 胆怯/发抖: 害怕发抖 [nervous] ; 生气: 气呼呼的生气 [emotion] ; 哇哇哭: 小孩子般的哭哭 [emotion]",,,
+zh,character,青山龙星,4f51116a-d9ee-4516-925d-21f183e2afad,"ノーマル, 熱血, 不機嫌, 喜び, しっとり, かなしみ, 囁き",厚重、低沉的声线,"普通: 标准自然的语气 [general] ; 热血: 激情热血 [energetic] ; 不爽/不高兴: 不高兴、有点刺 [emotion] ; 喜悦: 开心喜悦 [emotion] ; 湿润/柔和: 更柔和沉静 [calm] ; 悲伤: 悲伤（平假名表记） [emotion] ; 耳语: 耳语（汉字表记） [asmr,whisper]",,,
+zh,character,冥鸣Himari,8eaad775-3119-417e-8cf4-2a10bfd592c8,ノーマル,柔软、温暖的声线,普通: 标准自然的语气 [general],,,
+zh,character,九州宇宙,481fb609-6446-4870-9f46-90c4dd623403,"ノーマル, あまあま, ツンツン, セクシー, ささやき",有气质的成熟大人声线,"普通: 标准自然的语气 [general] ; 甜甜/撒娇: 软糯黏人、撒娇感 [cute,affection] ; 傲娇/别扭: 冷淡别扭、有点刺 [tsundere] ; 性感: 成熟妩媚的感觉 [mature] ; 耳语: 贴耳低声说话 [asmr,whisper]",,,
+zh,character,模型娘饼子,9f3ee141-26ad-437e-97bd-d22298d02ad2,"ノーマル, セクシー／あん子, 泣き, 怒り, 喜び, のんびり",清晰、平和稳重的声线,普通: 标准自然的语气 [general] ; 性感/あん子: 偏性感（角色固有） [mature] ; 哭泣: 哭着说话 [emotion] ; 愤怒: 愤怒语气 [emotion] ; 喜悦: 开心喜悦 [emotion] ; 悠闲: 慢悠悠、随性 [calm],,,
+zh,character,剑崎雌雄,1a17ca16-7ee5-4ea5-b191-2f02ace24d21,ノーマル,沉稳、令人安心的声线,普通: 标准自然的语气 [general],,,
+zh,character,WhiteCUL,67d5d8da-acd7-4207-bb10-b5542d3a663b,"ノーマル, たのしい, かなしい, びえーん",耐听、直率的声线,普通: 标准自然的语气 [general] ; 开心/愉快: 轻快愉快 [cheerful] ; 伤心: 难过伤心 [emotion] ; 哇哇哭: 小孩子般的哭哭 [emotion],,,
+zh,character,后鬼,0f56c2f2-644c-49c9-8989-94e11f7129d0,"人間ver., ぬいぐるみver., 人間（怒り）ver., 鬼ver.",内敛含蓄、很有包容感的声线,人类ver.: 人类版本 [variant] ; 玩偶ver.: 玩偶版本 [variant] ; 人类（愤怒）ver.: 人类（愤怒）版本 [variant] ; 鬼ver.: 鬼版本 [variant],,,
+zh,character,No.7,044830d2-f23b-44d6-ac0d-b5d733caa900,"ノーマル, アナウンス, 読み聞かせ",扎实、凛然的声线,"普通: 标准自然的语气 [general] ; 播报: 像播音员一样清晰 [narration] ; 朗读/讲故事: 讲故事式朗读 [narration,story]",,,
+zh,character,ちび式じい,468b8e94-9da4-4f7a-8715-a22a48844f9e,ノーマル,亲切的沙哑嗓音,普通: 标准自然的语气 [general],,,
+zh,character,樱歌Miko,0693554c-338e-4790-8982-b9c6d476dc69,"ノーマル, 第二形態, ロリ",可爱的少女声,"普通: 标准自然的语气 [general] ; 第二形态: 另一种形态/氛围 [variant] ; 萝莉: 更幼态的少女感 [cute,childlike]",,,
+zh,character,小夜/SAYO,a8cc6d22-aad0-4ab8-bf1e-2f843924164a,ノーマル,温和、温厚的声线,普通: 标准自然的语气 [general],,,
+zh,character,NurseRobot TypeT,882a636f-3bac-431a-966d-c5e6bba9f949,"ノーマル, 楽々, 恐怖, 内緒話",冷静、克制的声线,"普通: 标准自然的语气 [general] ; 轻松: 轻松不费力 [calm] ; 恐惧: 害怕的语气 [emotion] ; 悄悄话: 像在说悄悄话 [asmr,secret]",,,
+zh,character,†圣骑士 红樱†,471e39d2-fb11-4c8c-8d89-4b322d2498e0,ノーマル,爽朗、利落的声线,普通: 标准自然的语气 [general],,,
+zh,character,雀松朱司,0acebdee-a4a5-4e12-a695-e19609728e30,ノーマル,安静、稳定的声线,普通: 标准自然的语气 [general],,,
+zh,character,麒之岛宗麟,7d1e7ba7-f957-40e5-a3fc-da49f769ab65,ノーマル,低沉有韵味的大叔音,普通: 标准自然的语气 [general],,,
+zh,character,春歌Nana,ba5d2428-f7e0-4c20-ac41-9dd56e9178b4,ノーマル,朝气蓬勃、充满力量的声线,普通: 标准自然的语气 [general],,,
+zh,character,猫使R,00a5c10c-d3bd-459f-83fd-43180b521a44,"ノーマル, おちつき, うきうき",厚实、随和的声线,普通: 标准自然的语气 [general] ; 沉稳: 沉稳平静 [calm] ; 兴奋: 兴奋雀跃 [cheerful],,,
+zh,character,猫使B,c20a2254-0349-4470-9fc8-e5c0f8cf3404,"ノーマル, おちつき, 人見知り",纯真、稚嫩的声线,普通: 标准自然的语气 [general] ; 沉稳: 沉稳平静 [calm] ; 怕生: 怕生拘谨 [nervous],,,
+zh,character,中国兔,1f18ffc3-47ea-4ce0-9829-0576d03a7ec8,"ノーマル, おどろき, こわがり, へろへろ",幽静、青涩的声线,普通: 标准自然的语气 [general] ; 惊讶: 惊讶语气 [emotion] ; 胆小: 胆小害怕 [nervous] ; 虚脱/没力气: 虚脱（平假名表记） [lowenergy],,,
+zh,character,栗田栗子,04dbd989-32d0-40b4-9e71-17c920f2a8a9,ノーマル,富有深度的中性声线,普通: 标准自然的语气 [general],,,
+zh,character,IL碳,dda44ade-5f9c-4a3a-9d2c-2a976c7476d9,ノーマル,柔和、听感舒适的声线,普通: 标准自然的语气 [general],,,
+zh,character,满别花丸,287aa49f-e56b-4530-a469-855776c84a8d,"ノーマル, 元気, ささやき, ぶりっ子, ボーイ",生动鲜明、充满活力的声线,"普通: 标准自然的语气 [general] ; 元气: 活力满满 [energetic] ; 耳语: 贴耳低声说话 [asmr,whisper] ; 装可爱: 刻意装可爱 [cute] ; 男孩子气: 偏男孩子气 [variant]",,,
+zh,character,琴咏Nia,97a4af4b-086e-4efd-b125-7ae2da85e697,ノーマル,顺滑、无机质感的声线,普通: 标准自然的语气 [general],,,
+zh,character,Voidoll,0ebe2c7d-96f3-4f0e-a2e3-ae13fe27c403,ノーマル,内敛、电子感的声线,普通: 标准自然的语气 [general],,,
+zh,character,ぞん子,0156da66-4300-474a-a398-49eb2e8dd853,"ノーマル, 低血圧, 覚醒, 実況風",热血、情绪鲜明的声线,普通: 标准自然的语气 [general] ; 低血压/低气压: 懒懒的低能量 [lowenergy] ; 觉醒: 觉醒后的强烈感 [intense] ; 解说风: 像直播解说一样 [commentary],,,
+zh,character,中部つるぎ,4614a7de-9829-465d-9791-97eb8a5f9b86,"ノーマル, 怒り, ヒソヒソ, おどおど, 絶望と敗北",凛然、有存在感的声线,"普通: 标准自然的语气 [general] ; 愤怒: 愤怒语气 [emotion] ; 小声密语: 偷偷小声说话 [asmr,whisper,secret] ; 畏畏缩缩: 不安畏缩 [nervous] ; 绝望与败北: 被绝望击垮的感觉 [emotion]",,,
