@@ -1,137 +1,57 @@
-# VOICEVOX OneStepAPI (CN/EN/Pseudo-JP TTS)
+# VOICEVOX OneStepAPI (2026-02-11 Snapshot)
 
-[English](#english) | [日本語](#japanese) | [中文](#chinese)
+本仓库是 VOICEVOX 一步式 API 服务快照，包含：
+- FastAPI 适配层（`/tts`、`/tts_custom` 等）
+- 中文拟日语读法（`mode=pseudo_jp`）
+- 日语原文直送（`mode=raw`）
+- 前端页面、BGM 混音、角色资源缓存
+- Cloudflare Tunnel 可对外访问部署方案
 
----
+## 文档入口
+- 详细 API 手册（完整版，推荐先看）：`API_CALL_XINGSHUO.md`
+- 通用版说明：`API_CALL.md`
 
-<a name="english"></a>
-## 🇬🇧 English
+## 当前线上状态
+- 服务地址：`https://co2.de5.net`
+- 角色列表接口：`GET /voices`
+- 调试转换接口：`GET /debug_convert?mode=...&text=...`
 
-### Introduction
-This is a lightweight middleware server (FastAPI) that acts as a bridge between your application and the **VOICEVOX** engine. It enables VOICEVOX characters (like Zundamon) to read **Chinese** (and English) text by converting it into "Pseudo-Japanese" (Pseudo-Chinese / 偽中国語) pronunciation using Katakana.
+## 核心行为说明
+- `mode=raw`：原文直接合成（推荐用于日语）
+- `mode=pseudo_jp`：中文先拟读再合成（推荐用于中文日式发音）
+- 中文优化规则：只控制拟读策略，不自动修改速度/音高/抑扬等参数
 
-### Authentication
-All API requests require an API Key passed in the request header.
-*   **Header Name**: `X-API-Key`
-*   **Value**: `YOUR_API_KEY` (Configured via environment variable on the server)
-
-### API Usage
-
-#### 1. Get Voices
-**Endpoint**: `GET /voices`  
-**Header**: `X-API-Key: YOUR_API_KEY`
-
-#### 2. Synthesize Speech
-**Endpoint**: `POST /tts`  
-**Header**: `X-API-Key: YOUR_API_KEY`  
-**Request Body (JSON)**:
-```json
-{
-  "text": "Hello world, 你好世界。",
-  "speaker": 3,
-  "mode": "pseudo_jp",
-  "speedScale": 1.1,
-  "pitchScale": 0.0,
-  "intonationScale": 1.2,
-  "volumeScale": 1.0
-}
-```
-**Parameters**:
-*   `text` (string, required): The text to be spoken.
-*   `speaker` (int, required): The ID of the speaker (get from `/voices`).
-*   `mode` (string): `pseudo_jp` (default, converts to Katakana) or `raw` (sends text directly).
-*   `speedScale` (float): Speed (0.5 to 2.0).
-*   `pitchScale` (float): Pitch (-0.15 to 0.15).
-*   `intonationScale` (float): Intonation (0.0 to 2.0).
-*   `volumeScale` (float): Volume level.
-
----
-
-<a name="japanese"></a>
-## 🇯🇵 日本語
-
-### 認証
-すべてのAPIリクエストには、リクエストヘッダーにAPIキーを含める必要があります。
-*   **ヘッダー名**: `X-API-Key`
-*   **値**: `YOUR_API_KEY`
-
-### API の使い方
-
-#### 1. 話者リストの取得
-**エンドポイント**: `GET /voices`  
-**ヘッダー**: `X-API-Key: YOUR_API_KEY`
-
-#### 2. 音声合成
-**エンドポイント**: `POST /tts`  
-**リクエストボディ (JSON)**:
-```json
-{
-  "text": "こんにちは、你好世界。",
-  "speaker": 3,
-  "mode": "pseudo_jp",
-  "speedScale": 1.1,
-  "pitchScale": 0.0,
-  "intonationScale": 1.2
-}
+## 快速启动（本机）
+```bash
+cd /Users/macbookm1air8g/voicevox-onestepapi-cn
+./.venv/bin/uvicorn main:app --host 127.0.0.1 --port 8000
 ```
 
----
+## 关键接口
+- `GET /voices`：获取角色和 `speaker` 编号
+- `POST /tts`：JSON 合成（常用）
+- `POST /tts_custom`：自定义 BGM 上传合成
+- `GET /check_key?key=...`：Key/额度检查
+- `GET /character_info?uuid=...`：角色信息
 
-<a name="chinese"></a>
-## 🇨🇳 中文
-
-### 简介
-这是一个为 **VOICEVOX** 引擎设计的轻量级中间件（基于 FastAPI）。它让 Zundamon（ずんだもん）等角色能够通过“伪日语”（Pseudo-Japanese）的方式朗读**中文**。
-
-### 鉴权说明
-所有 API 请求均需要在 Header 中携带 API Key。
-*   **Header 名称**: `X-API-Key`
-*   **默认 Key**: `YOUR_API_KEY` (服务器端通过环境变量配置)
-
-### 接口调用指南
-
-#### 1. 获取音色列表
-**接口**: `GET /voices`  
-**Header**: `X-API-Key: YOUR_API_KEY`
-返回所有可用的角色及其对应的 `speaker_id`。
-
-#### 2. 语音合成接口
-**接口**: `POST /tts`  
-**Header**: `X-API-Key: YOUR_API_KEY`
-**请求体 (JSON)**:
-```json
-{
-  "text": "你好世界，这才是正宗的伪中国语！",
-  "speaker": 3,
-  "mode": "pseudo_jp",
-  "speedScale": 1.1,
-  "pitchScale": 0.0,
-  "intonationScale": 1.2,
-  "volumeScale": 1.0
-}
+## 典型调用（JSON）
+```bash
+curl -sS -X POST 'https://co2.de5.net/tts' \
+  -H 'Content-Type: application/json' \
+  -H 'X-API-Key: YOUR_API_KEY' \
+  --data '{
+    "text":"中国有句古话，识时务者为俊杰。",
+    "speaker":22,
+    "mode":"pseudo_jp",
+    "speedScale":1.0,
+    "pitchScale":0.0,
+    "intonationScale":1.0,
+    "outputSamplingRate":24000,
+    "outputStereo":false,
+    "bgmEnabled":false
+  }' -o out.wav
 ```
-**详细参数说明**:
-*   `text` (字符串, 必填): 需要合成的文本。
-*   `speaker` (整数, 必填): 角色 ID（从 `/voices` 获取）。
-*   `mode` (字符串): `pseudo_jp`（默认，开启拟音转换）或 `raw`（不转换）。
-*   `speedScale` (浮点数): 语速（建议 0.5 - 2.0）。
-*   `pitchScale` (浮点数): 音高（建议 -0.15 - 0.15）。
-*   `intonationScale` (浮点数): 语调抑扬（建议 0.0 - 2.0）。
-*   `volumeScale` (浮点数): 音量。
 
-**JavaScript 调用示例**:
-```javascript
-const response = await fetch("https://your-domain.com/tts", {
-  method: "POST",
-  headers: { 
-    "Content-Type": "application/json",
-    "X-API-Key": "YOUR_API_KEY" 
-  },
-  body: JSON.stringify({
-    text: "你好世界",
-    speaker: 3
-  })
-});
-const blob = await response.blob();
-new Audio(URL.createObjectURL(blob)).play();
-```
+## 仓库说明
+- 本仓库是生产快照，含静态角色资源（`static/`）与默认 BGM（`1.mp3`）。
+- 若你做二次开发，请优先阅读 `API_CALL_XINGSHUO.md` 的参数和排障章节。
