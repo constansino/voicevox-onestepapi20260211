@@ -144,6 +144,7 @@
                     
                     <div class="flex justify-end gap-2 text-[10px]">
                         <button @click="applyChineseOpt" class="bg-indigo-50 text-indigo-600 px-3 py-2 rounded-lg font-bold hover:bg-indigo-100 transition-colors">{{ t('cn_opt') }}</button>
+                        <button @click="applyJapaneseRef" class="bg-emerald-50 text-emerald-700 px-3 py-2 rounded-lg font-bold hover:bg-emerald-100 transition-colors">日语原版</button>
                         <button @click="resetParams" class="bg-slate-100 text-slate-600 px-3 py-2 rounded-lg font-bold hover:bg-slate-200 transition-colors">{{ t('reset') }}</button>
                         <button @click="copyConfig" class="bg-slate-100 text-slate-600 px-3 py-2 rounded-lg font-bold hover:bg-slate-200 transition-colors">{{ t('copy_api') }}</button>
                     </div>
@@ -174,6 +175,26 @@
                              <label class="text-[10px] font-bold text-slate-400 block mb-1">{{ t_param('kana') }}</label>
                              <input v-model="params.kana" :placeholder="t('kana_placeholder')" class="w-full bg-slate-50 text-xs rounded-lg px-2 py-1.5 border-none outline-none">
                          </div>
+                         <div class="col-span-2 bg-slate-50 rounded-xl p-3 border border-slate-100">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-slate-600">BGM</span>
+                                <label class="flex items-center gap-2 text-xs text-slate-500">
+                                    <input type="checkbox" v-model="params.bgmEnabled" class="w-4 h-4 accent-blue-600">
+                                    <span>Enable</span>
+                                </label>
+                            </div>
+                            <div class="mt-2" v-if="params.bgmEnabled">
+                                <div class="flex justify-between text-[10px] font-bold text-slate-400 mb-1">
+                                    <span>BGM Volume</span>
+                                    <span class="text-blue-600">{{ params.bgmVolume }}</span>
+                                </div>
+                                <input type="range" v-model.number="params.bgmVolume" min="0" max="1" step="0.05" class="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                                <div class="mt-2">
+                                    <input type="file" ref="bgmFileRef" @change="onBgmFileChange" accept="audio/*" class="w-full text-xs text-slate-500 file:mr-2 file:px-2 file:py-1 file:rounded file:border-0 file:bg-blue-50 file:text-blue-600">
+                                    <div v-if="customBgmFileName" class="text-[10px] text-slate-500 mt-1">Custom BGM: {{ customBgmFileName }}</div>
+                                </div>
+                            </div>
+                         </div>
                     </div>
 
                     <textarea v-model="text" ref="textareaRef" @input="adjustTextareaHeight" rows="3" class="w-full bg-slate-50 border-none rounded-xl px-4 py-3 text-base focus:ring-2 focus:ring-blue-500 outline-none resize-none flex-1 min-h-[100px]" :placeholder="t('input_placeholder')"></textarea>
@@ -193,30 +214,95 @@
 
         <Transition name="modal">
             <div v-if="showDocs" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" @click.self="showDocs = false">
-                <div class="bg-white rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl p-8 max-h-[80vh] overflow-y-auto">
-                    <h3 class="text-2xl font-black text-slate-800 mb-6">API Documentation</h3>
-                    <div class="prose text-sm text-slate-600">
-                        <p class="font-bold">Endpoint: <span class="font-mono bg-slate-100 px-1 rounded">POST /tts</span></p>
-                        <p class="mt-2 font-bold">Headers:</p>
+                <div class="bg-white rounded-3xl w-full max-w-4xl overflow-hidden shadow-2xl p-8 max-h-[82vh] overflow-y-auto">
+                    <h3 class="text-2xl font-black text-slate-800 mb-2">API 详细调用文档</h3>
+                    <p class="text-xs text-slate-500 mb-6">请勿把私有密钥硬编码在前端。统一通过请求头传递：<code class="bg-slate-100 px-1 rounded">X-API-Key</code>。</p>
+                    <div class="prose text-sm text-slate-600 max-w-none">
+                        <h4 class="font-bold text-slate-700">1) 接口总览</h4>
                         <ul class="list-disc pl-5">
-                            <li><code class="bg-slate-100 px-1 rounded">X-API-Key</code>: Your API Key</li>
-                            <li><code class="bg-slate-100 px-1 rounded">Content-Type</code>: application/json</li>
+                            <li><code class="bg-slate-100 px-1 rounded">GET /voices</code>：获取全部角色、声线、<code class="bg-slate-100 px-1 rounded">speaker</code> 编号</li>
+                            <li><code class="bg-slate-100 px-1 rounded">GET /check_key?key=...</code>：验证 Key 与额度</li>
+                            <li><code class="bg-slate-100 px-1 rounded">POST /tts</code>：JSON 合成（可开关默认 BGM）</li>
+                            <li><code class="bg-slate-100 px-1 rounded">POST /tts_custom</code>：上传自定义 BGM 合成（FormData）</li>
+                            <li><code class="bg-slate-100 px-1 rounded">GET /character_info?uuid=...</code>：获取角色头像和试听样本</li>
                         </ul>
-                        <p class="mt-2 font-bold">Body:</p>
-                        <pre class="bg-slate-100 p-4 rounded-xl mt-1 font-mono text-xs overflow-x-auto">
-{
-  "text": "Hello world",
-  "speaker": 1,
-  "speedScale": 1.1,
+
+                        <h4 class="font-bold text-slate-700 mt-4">2) 如何拿到“全量角色 + 声线编号”</h4>
+                        <p>你要的完整编号表全部来自 <code class="bg-slate-100 px-1 rounded">/voices</code>，不要手填。</p>
+                        <pre class="bg-slate-100 p-4 rounded-xl mt-1 font-mono text-xs overflow-x-auto"># 拉取全量
+curl -sS '/voices'
+
+# 只看“俊达萌”
+curl -sS '/voices' | jq '.[] | select(.name=="俊达萌")'
+
+# 导出“角色-声线-speaker”三列
+curl -sS '/voices' | jq -r '.[] as $c | $c.styles[] | [$c.name, .name, .id] | @tsv'</pre>
+
+                        <h4 class="font-bold text-slate-700 mt-4">3) 标准 JSON 合成（/tts）</h4>
+                        <p>Header:</p>
+                        <ul class="list-disc pl-5">
+                            <li><code class="bg-slate-100 px-1 rounded">X-API-Key: YOUR_API_KEY</code></li>
+                            <li><code class="bg-slate-100 px-1 rounded">Content-Type: application/json</code></li>
+                        </ul>
+                        <pre class="bg-slate-100 p-4 rounded-xl mt-1 font-mono text-xs overflow-x-auto">{
+  "text": "中国有句古话，识时务者为俊杰。",
+  "speaker": 22,
+  "speedScale": 1.2,
   "pitchScale": 0.0,
-  "intonationScale": 1.0,
+  "intonationScale": 1.1,
   "volumeScale": 1.0,
   "prePhonemeLength": 0.1,
   "postPhonemeLength": 0.1,
-  "outputSamplingRate": 24000,
-  "outputStereo": false,
-  "kana": "" 
+  "outputSamplingRate": 48000,
+  "outputStereo": true,
+  "kana": "",
+  "bgmEnabled": true,
+  "bgmVolume": 0.35
 }</pre>
+
+                        <h4 class="font-bold text-slate-700 mt-4">4) 自定义 BGM 上传（/tts_custom）</h4>
+                        <pre class="bg-slate-100 p-4 rounded-xl mt-1 font-mono text-xs overflow-x-auto">curl -X POST "/tts_custom" \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -F "text=测试文本" \
+  -F "speaker=22" \
+  -F "speedScale=1.2" \
+  -F "pitchScale=0.0" \
+  -F "intonationScale=1.1" \
+  -F "volumeScale=1.0" \
+  -F "prePhonemeLength=0.1" \
+  -F "postPhonemeLength=0.1" \
+  -F "outputSamplingRate=48000" \
+  -F "outputStereo=true" \
+  -F "bgmEnabled=true" \
+  -F "bgmVolume=0.35" \
+  -F "bgmFile=@/path/to/your.mp3" \
+  -o out.wav</pre>
+
+                        <h4 class="font-bold text-slate-700 mt-4">5) 参数建议范围</h4>
+                        <ul class="list-disc pl-5">
+                            <li><code class="bg-slate-100 px-1 rounded">speedScale</code>: 0.8 ~ 1.4</li>
+                            <li><code class="bg-slate-100 px-1 rounded">pitchScale</code>: -0.15 ~ 0.15</li>
+                            <li><code class="bg-slate-100 px-1 rounded">intonationScale</code>: 0.8 ~ 1.3</li>
+                            <li><code class="bg-slate-100 px-1 rounded">volumeScale</code>: 0.8 ~ 1.4</li>
+                            <li><code class="bg-slate-100 px-1 rounded">outputSamplingRate</code>: 推荐 48000</li>
+                            <li><code class="bg-slate-100 px-1 rounded">outputStereo</code>: 推荐 true</li>
+                            <li><code class="bg-slate-100 px-1 rounded">bgmVolume</code>: 推荐 0.2 ~ 0.45</li>
+                        </ul>
+
+                        <h4 class="font-bold text-slate-700 mt-4">6) 俊达萌耳语配置（常用）</h4>
+                        <ul class="list-disc pl-5">
+                            <li>低语：<code class="bg-slate-100 px-1 rounded">speaker=22</code></li>
+                            <li>悄悄话：<code class="bg-slate-100 px-1 rounded">speaker=38</code></li>
+                            <li>推荐模板：<code class="bg-slate-100 px-1 rounded">speedScale=1.15~1.25</code>，<code class="bg-slate-100 px-1 rounded">intonationScale=1.0~1.15</code></li>
+                        </ul>
+
+                        <h4 class="font-bold text-slate-700 mt-4">7) 常见错误排查</h4>
+                        <ul class="list-disc pl-5">
+                            <li><code class="bg-slate-100 px-1 rounded">401</code>：Key 错误或无额度</li>
+                            <li><code class="bg-slate-100 px-1 rounded">402</code>：余额不足</li>
+                            <li><code class="bg-slate-100 px-1 rounded">5xx</code>：引擎瞬时异常，建议重试</li>
+                            <li>音色不对：优先确认 <code class="bg-slate-100 px-1 rounded">speaker</code> 编号是否来自实时 <code class="bg-slate-100 px-1 rounded">/voices</code></li>
+                        </ul>
                     </div>
                     <button @click="showDocs = false" class="mt-6 w-full bg-slate-100 text-slate-600 py-3 rounded-xl font-bold hover:bg-slate-200 transition-colors">Close</button>
                 </div>
@@ -306,15 +392,38 @@
                 const selectedConfigIndex = ref(-1); const textareaRef = ref(null);
 
                 const adjustTextareaHeight = () => { if (textareaRef.value) { textareaRef.value.style.height = 'auto'; textareaRef.value.style.height = textareaRef.value.scrollHeight + 'px'; } };
-                const params = ref({ speed: 1.1, intonation: 1.0, pitch: 0.0, volume: 1.0, prePhoneme: 0.1, postPhoneme: 0.1, outputSamplingRate: 24000, outputStereo: false, kana: "" });
+                const DEFAULT_PARAMS = { speed: 1.2, intonation: 1.1, pitch: 0.0, volume: 1.0, prePhoneme: 0.1, postPhoneme: 0.1, outputSamplingRate: 48000, outputStereo: true, kana: "", bgmEnabled: true, bgmVolume: 0.35 };
+                const params = ref({ ...DEFAULT_PARAMS });
                 const paramConfig = { speed: { min: 0.5, max: 2.0, step: 0.1 }, intonation: { min: 0.0, max: 2.0, step: 0.1 }, pitch: { min: -0.15, max: 0.15, step: 0.01 }, volume: { min: 0.0, max: 2.0, step: 0.1 }, prePhoneme: { min: 0.0, max: 1.5, step: 0.1 }, postPhoneme: { min: 0.0, max: 1.5, step: 0.1 } };
                 const portraitUrl = ref(null); const samples = ref([]);
+                const customBgmFile = ref(null); const customBgmFileName = ref("");
 
                 const applyChineseOpt = () => {
-                    params.value = { ...params.value, speed: 1.2, intonation: 1.1, prePhoneme: 0.1, postPhoneme: 0.1 };
+                    // Chinese optimization now only keeps pseudo reading behavior.
+                    // It should not overwrite synthesis params (speed/pitch/intonation/etc).
+                    params.value = { ...params.value, kana: "" };
+                };
+                const applyJapaneseRef = () => {
+                    params.value = {
+                        ...params.value,
+                        speed: 1.0,
+                        intonation: 1.0,
+                        pitch: 0.0,
+                        volume: 1.0,
+                        prePhoneme: 0.1,
+                        postPhoneme: 0.1,
+                        outputSamplingRate: 24000,
+                        outputStereo: false,
+                        bgmEnabled: false,
+                        bgmVolume: 0.35,
+                        kana: ""
+                    };
                 };
                 const resetParams = () => {
-                    params.value = { speed: 1.1, intonation: 1.0, pitch: 0.0, volume: 1.0, prePhoneme: 0.1, postPhoneme: 0.1, outputSamplingRate: 24000, outputStereo: false, kana: "" };
+                    params.value = { ...DEFAULT_PARAMS };
+                    customBgmFile.value = null;
+                    customBgmFileName.value = "";
+                    if (bgmFileRef.value) bgmFileRef.value.value = "";
                 };
                 const copyConfig = () => {
                     const cfg = { url: window.location.origin + "/tts", method: "POST", headers: { "X-API-Key": apiKey.value || "YOUR_KEY", "Content-Type": "application/json" }, body: { text: text.value, speaker: selectedStyleId.value, ...params.value } };
@@ -359,6 +468,13 @@
 
                 onMounted(async () => {
                     try { const res = await fetch('/voices'); characters.value = await res.json(); if (characters.value.length) selectChar(characters.value[0]); } catch {} 
+                    try {
+                        const confRes = await fetch('/public_config');
+                        if (confRes.ok) {
+                            const conf = await confRes.json();
+                            if (!apiKey.value && conf.default_api_key) apiKey.value = conf.default_api_key;
+                        }
+                    } catch {}
                     if (apiKey.value) checkKey();
                     const saved = localStorage.getItem('vv_configs');
                     if (saved) savedConfigs.value = JSON.parse(saved);
@@ -386,15 +502,53 @@
                     try { const res = await fetch('/api/recharge/create', { method: 'POST', headers: { 'X-API-Key': apiKey.value }, body: new URLSearchParams({ 'amount_type': selectedPackage.value }) }); const data = await res.json(); window.location.href = data.url; } catch { alert("Error"); }
                 };
 
+                const onBgmFileChange = (e) => {
+                    const file = e.target.files && e.target.files[0] ? e.target.files[0] : null;
+                    customBgmFile.value = file;
+                    customBgmFileName.value = file ? file.name : "";
+                };
+
+                const detectMode = () => {
+                    // If text contains Japanese kana, keep raw text to stay close to native VOICEVOX web behavior.
+                    const hasKana = /[\u3040-\u30ff]/.test(text.value || "");
+                    return hasKana ? 'raw' : 'pseudo_jp';
+                };
+
                 const synthesize = async () => {
                     loading.value = true;
                     try {
-                        const res = await fetch('/tts', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-API-Key': apiKey.value }, body: JSON.stringify({ text: text.value, speaker: selectedStyleId.value, speedScale: params.value.speed, pitchScale: params.value.pitch, intonationScale: params.value.intonation, volumeScale: params.value.volume, prePhonemeLength: params.value.prePhoneme, postPhonemeLength: params.value.postPhoneme, outputSamplingRate: params.value.outputSamplingRate, outputStereo: params.value.outputStereo, kana: params.value.kana }) });
+                        let res;
+                        const mode = detectMode();
+                        if (params.value.bgmEnabled && customBgmFile.value) {
+                            const form = new FormData();
+                            form.append('text', text.value);
+                            form.append('speaker', String(selectedStyleId.value));
+                            form.append('mode', mode);
+                            form.append('speedScale', String(params.value.speed));
+                            form.append('pitchScale', String(params.value.pitch));
+                            form.append('intonationScale', String(params.value.intonation));
+                            form.append('volumeScale', String(params.value.volume));
+                            form.append('prePhonemeLength', String(params.value.prePhoneme));
+                            form.append('postPhonemeLength', String(params.value.postPhoneme));
+                            form.append('outputSamplingRate', String(params.value.outputSamplingRate));
+                            form.append('outputStereo', String(params.value.outputStereo));
+                            form.append('kana', params.value.kana || '');
+                            form.append('bgmEnabled', String(params.value.bgmEnabled));
+                            form.append('bgmVolume', String(params.value.bgmVolume));
+                            form.append('bgmFile', customBgmFile.value);
+                            res = await fetch('/tts_custom', { method: 'POST', headers: { 'X-API-Key': apiKey.value || '' }, body: form });
+                        } else {
+                            res = await fetch('/tts', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-API-Key': apiKey.value || '' }, body: JSON.stringify({ text: text.value, speaker: selectedStyleId.value, mode, speedScale: params.value.speed, pitchScale: params.value.pitch, intonationScale: params.value.intonation, volumeScale: params.value.volume, prePhonemeLength: params.value.prePhoneme, postPhonemeLength: params.value.postPhoneme, outputSamplingRate: params.value.outputSamplingRate, outputStereo: params.value.outputStereo, kana: params.value.kana, bgmEnabled: params.value.bgmEnabled, bgmVolume: params.value.bgmVolume }) });
+                        }
+                        if (!res.ok) {
+                            const msg = await res.text();
+                            throw new Error(msg || `HTTP ${res.status}`);
+                        }
                         const blob = await res.blob(); if (audioUrl.value) URL.revokeObjectURL(audioUrl.value); audioUrl.value = URL.createObjectURL(blob); credits.value -= text.value.length;
-                    } catch { alert("Error"); } finally { loading.value = false; }
+                    } catch (e) { alert(`Synthesis failed: ${e.message || 'Unknown error'}`); } finally { loading.value = false; }
                 };
 
-                return { currentLang, languages, t, t_char, t_style, t_param, characters, filteredCharacters, searchQuery, selectedChar, selectedStyleId, text, apiKey, credits, audioUrl, loading, params, paramConfig, portraitUrl, samples, checkKey, selectChar, synthesize, logout, handleLogin, showLoginModal, loginMode, loginForm, isLoggedIn, username, showRechargeModal, rechargeLoading, selectedPackage, handleRecharge, adjustTextareaHeight, textareaRef, selectedStyleDescription, applyChineseOpt, resetParams, copyConfig, saveConfig, loadConfig, deleteConfig, savedConfigs, selectedConfigIndex, loadConfig, deleteConfig, showDocs };
+                return { currentLang, languages, t, t_char, t_style, t_param, characters, filteredCharacters, searchQuery, selectedChar, selectedStyleId, text, apiKey, credits, audioUrl, loading, params, paramConfig, portraitUrl, samples, checkKey, selectChar, synthesize, logout, handleLogin, showLoginModal, loginMode, loginForm, isLoggedIn, username, showRechargeModal, rechargeLoading, selectedPackage, handleRecharge, adjustTextareaHeight, textareaRef, selectedStyleDescription, applyChineseOpt, applyJapaneseRef, resetParams, copyConfig, saveConfig, loadConfig, deleteConfig, savedConfigs, selectedConfigIndex, loadConfig, deleteConfig, showDocs, bgmFileRef, onBgmFileChange, customBgmFileName };
             }
         }).mount('#app');
     </script>

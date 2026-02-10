@@ -33,7 +33,7 @@ Base.metadata.create_all(bind=engine)
 
 # --- FastAPI 配置 ---
 VOICEVOX_URL = os.getenv("VOICEVOX_BASE_URL", "http://127.0.0.1:800").rstrip("/")
-ADMIN_SECRET = "xingshuo_admin" # 管理员密码，用于生成 Key
+ADMIN_SECRET = "change_me_admin_key" # 管理员密码，用于生成 Key
 
 app = FastAPI(title="Voicevox OneStep API & Web")
 

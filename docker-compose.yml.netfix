@@ -19,9 +19,9 @@ services:
       HOME: /home/node
       NODE_ENV: production
       TERM: xterm-256color
-      CLAWDBOT_GATEWAY_TOKEN: xingshuo
+      CLAWDBOT_GATEWAY_TOKEN: public_demo_key
       CLAWDBOT_GATEWAY_BIND: lan
-      GOG_KEYRING_PASSWORD: xingshuo
+      GOG_KEYRING_PASSWORD: public_demo_key
       XDG_CONFIG_HOME: /home/node/.clawdbot
       PATH: /home/linuxbrew/.linuxbrew/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     volumes:
@@ -48,6 +48,6 @@ services:
     environment:
       - NAPCAT_UID=0
       - NAPCAT_GID=0
-      - NAPCAT_WEBUI_TOKEN=xingshuo
+      - NAPCAT_WEBUI_TOKEN=public_demo_key
     volumes:
       - /data/napcat:/app/.config/QQ

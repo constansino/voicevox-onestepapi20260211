@@ -3,8 +3,9 @@ import json
 import base64
 import os
 
-VOICEVOX_URL = "http://127.0.0.1:800"
-OUTPUT_DIR = "/data/voicevox/webui"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+VOICEVOX_URL = os.getenv("VOICEVOX_BASE_URL", "https://voicevox.kira.de5.net").rstrip("/")
+OUTPUT_DIR = os.getenv("VOICEVOX_STATIC_DIR", os.path.join(BASE_DIR, "static"))
 
 if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
@@ -36,7 +37,7 @@ def save_base64_audio(base64_str, filename):
 def main():
     print("Fetching speakers...")
     try:
-        speakers = requests.get(f"{VOICEVOX_URL}/speakers").json()
+        speakers = requests.get(f"{VOICEVOX_URL}/speakers", timeout=30, verify=False).json()
     except Exception as e:
         print(f"Failed to fetch speakers: {e}")
         return
@@ -49,7 +50,12 @@ def main():
         print(f"Processing {name} ({uuid})...")
 
         try:
-            info = requests.get(f"{VOICEVOX_URL}/speaker_info", params={"speaker_uuid": uuid}).json()
+            info = requests.get(
+                f"{VOICEVOX_URL}/speaker_info",
+                params={"speaker_uuid": uuid},
+                timeout=30,
+                verify=False
+            ).json()
             
             # Save Portrait
             if info.get("portrait"):

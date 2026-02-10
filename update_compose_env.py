@@ -8,11 +8,11 @@ if 'napcat' in config['services']:
     env = config['services']['napcat'].get('environment', [])
     # 确保是列表格式
     if isinstance(env, dict):
-        env['NAPCAT_WEBUI_TOKEN'] = 'xingshuo'
+        env['NAPCAT_WEBUI_TOKEN'] = 'public_demo_key'
     else:
         # 如果是列表，先删除旧的再添加
         env = [item for item in env if 'NAPCAT_WEBUI_TOKEN' not in item]
-        env.append('NAPCAT_WEBUI_TOKEN=xingshuo')
+        env.append('NAPCAT_WEBUI_TOKEN=public_demo_key')
     config['services']['napcat']['environment'] = env
 
 with open(file_path, 'w') as f:

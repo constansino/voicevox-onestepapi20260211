@@ -8,6 +8,8 @@ import subprocess
 import tempfile
 import hashlib
 import secrets
+import io
+import wave
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 from datetime import datetime
@@ -17,7 +19,7 @@ from fastapi.responses import Response, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from pypinyin import pinyin, Style
+from pypinyin import pinyin, Style, load_phrases_dict
 from sqlalchemy import Column, String, Integer, DateTime, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
@@ -119,21 +121,44 @@ def verify_password(stored_password: str, stored_salt: str, provided_password: s
 Base.metadata.create_all(bind=engine)
 
 # --- 配置 ---
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 VOICEVOX_URL = os.getenv("VOICEVOX_BASE_URL", "https://voicevox.kira.de5.net").rstrip("/")
-ADMIN_KEY = "xingshuo_admin"
-BGM_FILE = "/data/voicevox/1.mp3"
+ADMIN_KEY = os.getenv("VOICEVOX_ADMIN_KEY", "change_me_admin_key")
+PUBLIC_API_KEY = os.getenv("VOICEVOX_ADAPTER_KEY", "public_demo_key")
+BGM_FILE = os.getenv("VOICEVOX_BGM_FILE", os.path.join(BASE_DIR, "1.mp3"))
 
 # --- Translations ---
 TRANSLATIONS = {}
 try:
-    with open("/root/voicevox_translations.json", "r", encoding="utf-8") as f:
+    translations_file = os.getenv("VOICEVOX_TRANSLATIONS_FILE", os.path.join(BASE_DIR, "voicevox_translations.json"))
+    with open(translations_file, "r", encoding="utf-8") as f:
         TRANSLATIONS = json.load(f)
 except Exception as e:
     logging.error(f"Failed to load translations: {e}")
 
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_headers=["*"], allow_methods=["*"])
-app.mount("/static", StaticFiles(directory="/data/voicevox/webui"), name="static")
+static_dir = os.getenv("VOICEVOX_STATIC_DIR", os.path.join(BASE_DIR, "static"))
+os.makedirs(static_dir, exist_ok=True)
+app.mount("/static", StaticFiles(directory=static_dir), name="static")
+
+def normalize_api_key(x_api_key: Optional[str]) -> str:
+    key = (x_api_key or "").strip()
+    return key if key else PUBLIC_API_KEY
+
+def ensure_public_api_key():
+    if not PUBLIC_API_KEY:
+        return
+    db = SessionLocal()
+    try:
+        record = db.query(APIKeyRecord).filter(APIKeyRecord.key == PUBLIC_API_KEY).first()
+        if not record:
+            db.add(APIKeyRecord(key=PUBLIC_API_KEY, credits=10_000_000))
+            db.commit()
+    finally:
+        db.close()
+
+ensure_public_api_key()
 
 class UserRegister(BaseModel):
     username: str
@@ -190,6 +215,15 @@ def check_key(key: str, db: Session = Depends(get_db)):
     if not record: raise HTTPException(status_code=404, detail="Key not found")
     return {"credits": record.credits, "type": "legacy"}
 
+@app.get("/public_config")
+def public_config():
+    return {"default_api_key": PUBLIC_API_KEY}
+
+@app.get("/debug_convert")
+def debug_convert(text: str, mode: str = "pseudo_jp"):
+    converted = converter.convert(text) if mode == "pseudo_jp" else text
+    return {"mode": mode, "input": text, "output": converted}
+
 # --- 缓存 ---
 SPEAKER_STYLE_MAP = {} # { uuid: { name: id } }
 STYLE_ID_TO_UUID = {} # { id: uuid }
@@ -216,13 +250,13 @@ refresh_speaker_cache()
 # --- 核心：伪日语转换逻辑 (包含 PINYIN_TO_KANA) ---
 PINYIN_TO_KANA = {
     "a": "アー", "ai": "アイ", "an": "アン", "ang": "アン", "ao": "アオ",
-    "ba": "バー", "bai": "バイ", "ban": "バン", "bang": "バン", "bao": "バオ", "bei": "ベイ", "ben": "ベン", "beng": "ベン", "bi": "ビー", "bian": "ビェン", "biao": "ビャ奥", "bie": "ビェ", "bin": "ビン", "bing": "ビン", "bo": "ボ", "bu": "ブー",
+    "ba": "バー", "bai": "バイ", "ban": "バン", "bang": "バン", "bao": "バオ", "bei": "ベイ", "ben": "ベン", "beng": "ベン", "bi": "ビー", "bian": "ビェン", "biao": "ビャオ", "bie": "ビェ", "bin": "ビン", "bing": "ビン", "bo": "ボ", "bu": "ブー",
     "ca": "ツァ", "cai": "ツァイ", "can": "ツァン", "cang": "ツァン", "cao": "ツァオ", "ce": "ツァ", "cen": "ツェン", "ceng": "ツェン", "ci": "ツー", "cong": "ツォン", "cou": "ツォウ", "cu": "ツー", "cuan": "ツァン", "cui": "ツイ", "cun": "ツン", "cuo": "ツォ",
     "cha": "チャー", "chai": "チャイ", "chan": "チャン", "chang": "チャン", "chao": "チャオ", "che": "チャー", "chen": "チェン", "cheng": "チェン", "chi": "チー", "chong": "チョン", "chou": "チョウ", "chu": "チュー", "chua": "チュア", "chuai": "チュアイ", "chuan": "チュアン", "chuang": "チュアン", "chui": "チュイ", "chun": "チュン", "chuo": "チュオ",
     "da": "ダー", "dai": "ダイ", "dan": "ダン", "dang": "ダン", "dao": "ダオ", "de": "ダ", "dei": "デイ", "den": "デン", "deng": "デン", "di": "ディー", "dia": "ディア", "dian": "ディェン", "diao": "ディアオ", "die": "ディェ", "ding": "ディン", "diu": "ディウ", "dong": "ドン", "dou": "ドウ", "du": "ドゥー", "duan": "ドゥアン", "dui": "ドゥイ", "dun": "ドゥン", "duo": "ドゥオ",
     "e": "アー", "ei": "エイ", "en": "エン", "eng": "エン", "er": "アル",
     "fa": "ファー", "fan": "ファン", "fang": "ファン", "fei": "フェイ", "fen": "フェン", "feng": "フェン", "fo": "フォ", "fou": "フォウ", "fu": "フー",
-    "ga": "ガー", "gai": "ガイ", "gan": "ガン", "gang": "ガン", "gao": "ガオ", "ge": "ガ", "gei": "ゲイ", "gen": "ゲン", "geng": "ゲン", "gong": "ゴン", "gou": "ゴウ", "gu": "グー", "gua": "グ亚", "guai": "グアイ", "guan": "グアン", "guang": "グアン", "gui": "グイ", "gun": "グン", "guo": "グオ",
+    "ga": "ガー", "gai": "ガイ", "gan": "ガン", "gang": "ガン", "gao": "ガオ", "ge": "ガ", "gei": "ゲイ", "gen": "ゲン", "geng": "ゲン", "gong": "ゴン", "gou": "ゴウ", "gu": "グー", "gua": "グア", "guai": "グアイ", "guan": "グアン", "guang": "グアン", "gui": "グイ", "gun": "グン", "guo": "グオ",
     "ha": "ハー", "hai": "ハイ", "han": "ハン", "hang": "ハン", "hao": "ハオ", "he": "ハ", "hei": "ヘイ", "hen": "ヘン", "heng": "ヘン", "hong": "ホン", "hou": "ホウ", "hu": "フー", "hua": "ファ", "huai": "ファイ", "huan": "ファン", "huang": "ファン", "hui": "フェイ", "hun": "フン", "huo": "フォ",
     "ji": "ジー", "jia": "ジャ", "jian": "ジェン", "jiang": "ジャン", "jiao": "ジャオ", "jie": "ジェ", "jin": "ジン", "jing": "ジン", "jiong": "ジォン", "jiu": "ジウ", "ju": "ジュー", "juan": "ジュェン", "jue": "ジュェ", "jun": "ジュン",
     "ka": "カー", "kai": "カイ", "kan": "カン", "kang": "カン", "kao": "カオ", "ke": "カ", "kei": "ケイ", "ken": "ケン", "keng": "ケン", "kong": "コン", "kou": "コウ", "ku": "クー", "kua": "クア", "kuai": "クアイ", "kuan": "クアン", "kuang": "クアン", "kui": "クイ", "kun": "クン", "kuo": "クオ",
@@ -230,7 +264,7 @@ PINYIN_TO_KANA = {
     "ma": "マー", "mai": "マイ", "man": "マン", "mang": "マン", "mao": "マオ", "me": "マ", "mei": "メイ", "men": "メン", "meng": "メン", "mi": "ミー", "mian": "ミェン", "miao": "ミャオ", "mie": "ミェ", "min": "ミン", "ming": "ミン", "miu": "ミウ", "mo": "モ", "mou": "モウ", "mu": "ムー",
     "na": "ナー", "nai": "ナイ", "nan": "ナン", "nang": "ナン", "nao": "ナオ", "ne": "ナ", "nei": "ネイ", "nen": "ネン", "neng": "ネン", "ni": "ニー", "nian": "ニェン", "niang": "ニャン", "niao": "ニャオ", "nie": "ニェ", "nin": "ニン", "ning": "ニン", "niu": "ニウ", "nong": "ノン", "nou": "ノウ", "nu": "ヌー", "nv": "ニュー", "nuan": "ヌアン", "nue": "ニュェ", "nuo": "ヌオ",
     "o": "オー", "ou": "オウ",
-    "pa": "パー", "pai": "パイ", "pan": "パン", "pang": "パン", "pao": "パ奥", "pei": "ペイ", "pen": "ペン", "peng": "ペン", "pi": "ピー", "pian": "ピェン", "piao": "ピャオ", "pie": "ピェ", "pin": "ピン", "ping": "ピン", "po": "ポ", "pou": "ポウ", "pu": "プー",
+    "pa": "パー", "pai": "パイ", "pan": "パン", "pang": "パン", "pao": "パオ", "pei": "ペイ", "pen": "ペン", "peng": "ペン", "pi": "ピー", "pian": "ピェン", "piao": "ピャオ", "pie": "ピェ", "pin": "ピン", "ping": "ピン", "po": "ポ", "pou": "ポウ", "pu": "プー",
     "qi": "チー", "qia": "チャ", "qian": "チェン", "qiang": "チャン", "qiao": "チャオ", "qie": "チェ", "qin": "チン", "qing": "チン", "qiong": "チョン", "qiu": "チウ", "qu": "チュー", "quan": "チュェン", "que": "チュェ", "qun": "チュン",
     "ran": "ラン", "rang": "ラン", "rao": "ラオ", "re": "ラ", "ren": "レン", "reng": "レン", "ri": "リー", "rong": "ロン", "rou": "ロウ", "ru": "ルー", "ruan": "ルアン", "rui": "ルイ", "run": "ルン", "ruo": "ルオ",
     "sa": "サー", "sai": "サイ", "san": "サン", "sang": "サン", "sao": "サオ", "se": "サ", "sen": "セン", "seng": "セン", "si": "スー", "song": "ソン", "sou": "ソウ", "su": "スー", "suan": "スアン", "sui": "スイ", "sun": "スン", "suo": "スオ",
@@ -243,20 +277,76 @@ PINYIN_TO_KANA = {
     "zha": "ジャー", "zhai": "ジャイ", "zhan": "ジャン", "zhang": "ジャン", "zhao": "ジャオ", "zhe": "ジャ", "zhei": "ジェイ", "zhen": "ジェン", "zheng": "ジェン", "zhi": "ジー", "zhong": "ジョン", "zhou": "ジョウ", "zhu": "ジュー", "zhua": "ジュア", "zhuai": "ジュアイ", "zhuan": "ジュアン", "zhuang": "ジュアン", "zhui": "ジュイ", "zhun": "ジュン", "zhuo": "ジュオ"
 }
 
+load_phrases_dict({
+    # Common polyphonic words/phrases
+    "重庆": [["chong"], ["qing"]],
+    "银行": [["yin"], ["hang"]],
+    "行长": [["hang"], ["zhang"]],
+    "重启": [["chong"], ["qi"]],
+    "重复": [["chong"], ["fu"]],
+    "重要": [["zhong"], ["yao"]],
+    "音乐": [["yin"], ["yue"]],
+    "乐器": [["yue"], ["qi"]],
+    "快乐": [["kuai"], ["le"]],
+    "长大": [["zhang"], ["da"]],
+    "成长": [["cheng"], ["zhang"]],
+})
+
+CN_DIGITS = {
+    "0": "零", "1": "一", "2": "二", "3": "三", "4": "四",
+    "5": "五", "6": "六", "7": "七", "8": "八", "9": "九"
+}
+
+EN_LETTER_TO_KATA = {
+    "a": "エー", "b": "ビー", "c": "シー", "d": "ディー", "e": "イー", "f": "エフ",
+    "g": "ジー", "h": "エイチ", "i": "アイ", "j": "ジェー", "k": "ケー", "l": "エル",
+    "m": "エム", "n": "エヌ", "o": "オー", "p": "ピー", "q": "キュー", "r": "アール",
+    "s": "エス", "t": "ティー", "u": "ユー", "v": "ブイ", "w": "ダブリュー", "x": "エックス",
+    "y": "ワイ", "z": "ゼット"
+}
+
+
 class PseudoConverter:
     def is_chinese(self, char): return '\u4e00' <= char <= '\u9fff'
+
+    def process_number(self, text):
+        cn = "".join(CN_DIGITS.get(ch, ch) for ch in text)
+        return self.process_chinese(cn)
+
     def process_chinese(self, text):
         py_list = pinyin(text, style=Style.NORMAL, errors='default')
-        return "".join([PINYIN_TO_KANA.get(p[0].lower().replace("ü", "v"), p[0]) for p in py_list])
+        kana_list = []
+        for p in py_list:
+            py = p[0].lower().replace("ü", "v")
+            kana_list.append(PINYIN_TO_KANA.get(py, p[0]))
+        # Keep natural flow: do not force per-syllable separators.
+        return "".join(kana_list)
+
     def process_english(self, text):
-        text = text.lower()
+        if text.isupper() and text.isalpha() and len(text) <= 8:
+            return "・".join(EN_LETTER_TO_KATA.get(ch.lower(), ch) for ch in text.lower())
+        text = text.lower().replace("-", " ")
         replacements = [("th", "s"), ("ph", "f"), ("v", "b"), ("l", "r"), ("tion", "shon"), ("si", "shi"), ("tu", "chu"), ("ti", "chi")]
         for old, new in replacements: text = text.replace(old, new)
-        if text[-1] not in "aeiou": text += "o" if text[-1] in "td" else "u"
+        if text and text[-1] not in "aeiou":
+            text += "o" if text[-1] in "td" else "u"
         return text
+
     def convert(self, text):
-        tokens = re.findall(r'[\u4e00-\u9fff]+|[a-zA-Z0-9]+|[^a-zA-Z0-9\u4e00-\u9fff]+', text)
-        return "".join([self.process_chinese(t) if self.is_chinese(t[0]) else (self.process_english(t) if re.match(r'[a-zA-Z]+', t) else t) for t in tokens])
+        tokens = re.findall(r'[\u4e00-\u9fff]+|[a-zA-Z]+|[0-9]+|[^a-zA-Z0-9\u4e00-\u9fff]+', text)
+        out = []
+        for t in tokens:
+            if not t:
+                continue
+            if self.is_chinese(t[0]):
+                out.append(self.process_chinese(t))
+            elif re.match(r'^[a-zA-Z]+$', t):
+                out.append(self.process_english(t))
+            elif re.match(r'^[0-9]+$', t):
+                out.append(self.process_number(t))
+            else:
+                out.append(t)
+        return "".join(out)
 
 converter = PseudoConverter()
 
@@ -285,6 +375,14 @@ def parse_segments(text, default_speaker_id):
     if not current_uuid:
         refresh_speaker_cache()
         current_uuid = STYLE_ID_TO_UUID.get(default_speaker_id)
+    text = text.strip()
+    if not text:
+        return []
+    # No style tag: keep full sentence (including punctuation) as one segment,
+    # so prosody stays consistent.
+    if "$" not in text:
+        return [(default_speaker_id, text)]
+
     segments = []
     parts = text.replace("，", ",").split(",")
     for part in parts:
@@ -306,13 +404,77 @@ def parse_segments(text, default_speaker_id):
             segments.append((default_speaker_id, part))
     return segments
 
+def concat_wavs(audio_files):
+    if not audio_files:
+        return b""
+    out_buf = io.BytesIO()
+    first_params = None
+    with wave.open(out_buf, "wb") as out_wav:
+        for idx, path in enumerate(audio_files):
+            with wave.open(path, "rb") as in_wav:
+                params = in_wav.getparams()
+                if idx == 0:
+                    first_params = params
+                    out_wav.setnchannels(params.nchannels)
+                    out_wav.setsampwidth(params.sampwidth)
+                    out_wav.setframerate(params.framerate)
+                else:
+                    if (
+                        params.nchannels != first_params.nchannels
+                        or params.sampwidth != first_params.sampwidth
+                        or params.framerate != first_params.framerate
+                    ):
+                        raise ValueError("WAV format mismatch while concatenating segments")
+                out_wav.writeframes(in_wav.readframes(in_wav.getnframes()))
+    return out_buf.getvalue()
+
+def mix_with_bgm(tts_audio: bytes, bgm_volume: float = 0.5, bgm_path: Optional[str] = None) -> bytes:
+    bgm_src = bgm_path or BGM_FILE
+    if not tts_audio or not bgm_src or not os.path.exists(bgm_src):
+        return tts_audio
+    temp_files = []
+    try:
+        tts_file = tempfile.NamedTemporaryFile(suffix=".wav", delete=False)
+        tts_file.write(tts_audio)
+        tts_file.close()
+        temp_files.append(tts_file.name)
+
+        out_file = tempfile.NamedTemporaryFile(suffix=".wav", delete=False)
+        out_file.close()
+        temp_files.append(out_file.name)
+
+        subprocess.run(
+            [
+                "ffmpeg", "-y",
+                "-stream_loop", "-1", "-i", bgm_src,
+                "-i", tts_file.name,
+                "-filter_complex", f"[0:a]volume={bgm_volume}[bgm];[bgm][1:a]amix=inputs=2:duration=shortest:dropout_transition=2[out]",
+                "-map", "[out]",
+                "-ac", "1",
+                out_file.name,
+            ],
+            check=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.PIPE,
+        )
+        with open(out_file.name, "rb") as f:
+            return f.read()
+    except Exception as e:
+        logging.error(f"BGM mix failed: {e}")
+        return tts_audio
+    finally:
+        for f in temp_files:
+            if os.path.exists(f):
+                os.unlink(f)
+
 def generate_combined_audio(segments, params):
     audio_files = []
     temp_files = []
     try:
         for spk_id, text in segments:
             if not text: continue
-            target_text = converter.convert(text)
+            use_pseudo = getattr(params, "mode", "pseudo_jp") == "pseudo_jp"
+            target_text = converter.convert(text) if use_pseudo else text
             q = requests.post(f"{VOICEVOX_URL}/audio_query", params={"text": target_text, "speaker": spk_id}, verify=False).json()
             q["speedScale"] = params.speedScale
             q["pitchScale"] = params.pitchScale
@@ -343,15 +505,30 @@ def generate_combined_audio(segments, params):
             audio_files.append(tf.name)
         if not audio_files: return b""
         if len(audio_files) == 1:
-            with open(audio_files[0], "rb") as f: return f.read()
+            with open(audio_files[0], "rb") as f:
+                base_audio = f.read()
+            if getattr(params, "bgmEnabled", False):
+                return mix_with_bgm(base_audio, getattr(params, "bgmVolume", 0.5), getattr(params, "bgmFilePath", None))
+            return base_audio
         list_file = tempfile.NamedTemporaryFile(suffix=".txt", delete=False, mode="w")
         for f in audio_files: list_file.write(f"file '{f}'\n")
         list_file.close()
         temp_files.append(list_file.name)
         out_file = tempfile.NamedTemporaryFile(suffix=".wav", delete=False).name
         temp_files.append(out_file)
-        subprocess.run(["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", list_file.name, "-c", "copy", out_file], check=True, stderr=subprocess.PIPE)
-        with open(out_file, "rb") as f: return f.read()
+        try:
+            subprocess.run(
+                ["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", list_file.name, "-c", "copy", out_file],
+                check=True,
+                stderr=subprocess.PIPE
+            )
+            with open(out_file, "rb") as f:
+                merged_audio = f.read()
+        except FileNotFoundError:
+            merged_audio = concat_wavs(audio_files)
+        if getattr(params, "bgmEnabled", False):
+            return mix_with_bgm(merged_audio, getattr(params, "bgmVolume", 0.5), getattr(params, "bgmFilePath", None))
+        return merged_audio
     except Exception as e:
         logging.error(f"Audio gen error: {e}")
         return b""
@@ -380,7 +557,8 @@ def get_character_info(uuid: str):
     return {"portrait_url": f"/static/{uuid}_portrait.png", "sample_urls": [f"/static/{uuid}_sample_{i}.wav" for i in range(1, 4)]}
 
 @app.post("/tts")
-def tts(req: TTSRequest, x_api_key: str = Header(...), db: Session = Depends(get_db)):
+def tts(req: TTSRequest, x_api_key: Optional[str] = Header(None), db: Session = Depends(get_db)):
+    x_api_key = normalize_api_key(x_api_key)
     user = db.query(User).filter(User.api_key == x_api_key).first()
     if user:
         cost = len(req.text)
@@ -402,8 +580,9 @@ async def tts_custom(
     volumeScale: float = Form(1.0), prePhonemeLength: float = Form(0.1), postPhonemeLength: float = Form(0.1),
     outputSamplingRate: int = Form(24000), outputStereo: bool = Form(False), kana: Optional[str] = Form(None),
     bgmEnabled: bool = Form(False), bgmVolume: float = Form(0.5), bgmFile: UploadFile = File(None),
-    x_api_key: str = Header(...), db: Session = Depends(get_db)
+    x_api_key: Optional[str] = Header(None), db: Session = Depends(get_db)
 ):
+    x_api_key = normalize_api_key(x_api_key)
     user = db.query(User).filter(User.api_key == x_api_key).first()
     if user:
         cost = len(text)
@@ -424,11 +603,28 @@ async def tts_custom(
     p.outputSamplingRate = outputSamplingRate
     p.outputStereo = outputStereo
     p.kana = kana
+    p.mode = mode
+    p.bgmEnabled = bgmEnabled
+    p.bgmVolume = bgmVolume
+    temp_bgm_path = None
+    if bgmFile is not None:
+        content = await bgmFile.read()
+        if content:
+            suffix = os.path.splitext(bgmFile.filename or "")[1] or ".mp3"
+            tf = tempfile.NamedTemporaryFile(suffix=suffix, delete=False)
+            tf.write(content)
+            tf.close()
+            temp_bgm_path = tf.name
+            p.bgmFilePath = temp_bgm_path
     
-    segments = parse_segments(text, speaker)
-    audio = generate_combined_audio(segments, p)
-    db.commit()
-    return Response(content=audio, media_type="audio/wav")
+    try:
+        segments = parse_segments(text, speaker)
+        audio = generate_combined_audio(segments, p)
+        db.commit()
+        return Response(content=audio, media_type="audio/wav")
+    finally:
+        if temp_bgm_path and os.path.exists(temp_bgm_path):
+            os.unlink(temp_bgm_path)
 
 # --- Payment Logic ---
 @app.post("/api/recharge/create")
@@ -462,7 +658,8 @@ def mock_confirm(order_id: str = Form(...), db: Session = Depends(get_db)):
 def index():
     trans_json = json.dumps(TRANSLATIONS, ensure_ascii=False)
     try:
-        with open("/root/voicevox-onestepapi-cn-en-pseudo-jp-tts/index.html", "r", encoding="utf-8") as f:
+        index_file = os.getenv("VOICEVOX_INDEX_FILE", os.path.join(BASE_DIR, "index.html"))
+        with open(index_file, "r", encoding="utf-8") as f:
             html = f.read()
         return html.replace('[[TRANS_JSON]]', trans_json)
     except Exception as e:
